@@ -45,7 +45,7 @@ LOCAL = env('LOCAL')
 # Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['femalefightnutritionist.herokuapp.com']
 
 INTERNAL_IPS = [
     "127.0.0.1",
