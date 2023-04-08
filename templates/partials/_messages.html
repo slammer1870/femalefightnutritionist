@@ -1,0 +1,27 @@
+<!--Display message with background colour set for categories-->
+{% if messages %} {% for message in messages %}
+<div class="fixed flex top-14 md:top-16 w-full z-50" id="alert">
+  <div
+    class="
+    text-center
+      w-full
+      p-4
+      mx-auto
+      relative
+      text-white
+      {% if message.tags %}{{ message.tags }}{% endif %}
+    "
+  >
+    {{ message }}
+  </div>
+</div>
+{% endfor %} {% endif %}
+<!--Script to close message after 5 seconds-->
+<script>
+  if (document.getElementById("alert")) {
+    window.setTimeout(
+      "document.getElementById('alert').style.display='none';",
+      5000
+    );
+  }
+</script>

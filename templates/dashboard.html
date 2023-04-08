@@ -1,0 +1,83 @@
+<!--Dashboard Page-->
+{% extends "base.html" %} {% block content %}
+<div class="p-4 lg:px-0 min-h-screen">
+  <div class="max-w-screen-md mt-20 mx-auto text-gray-900">
+    <h1 class="text-4xl mb-4">Dashboard</h1>
+    <p class="mb-4">
+      Welcome to your dashboard, from here you can manage your orders and
+      programs!
+    </p>
+    {% if program %}
+    <h3 class="text-xl text-center">{{today|date:"D, d F, Y"}}</h3>
+    <canvas id="pie-chart" class="w-full mx-auto my-8"></canvas>
+    <div class="w-full mx-auto mb-10">
+      <p class="text-xl mb-4 flex">
+        Calories for the day:
+        <span class="font-semibold ml-auto">{{calories}}cal</span>
+      </p>
+    </div>
+    {% endif %} {% if starting_weight %}
+    <h3 class="text-xl text-center">Current Weight vs. Goal Weight</h3>
+    <canvas id="line-chart" class="w-full mx-auto my-8"></canvas>
+    {% endif %} {% block products %}{% endblock products %}
+  </div>
+</div>
+
+<!--Chart Js Import and Configuration-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+  let labels = ["Protein", "Carbs", "Fats"];
+
+  var config = {
+    type: "pie",
+    data: {
+      datasets: [
+        {
+          data: [{{protein|safe}}, {{carbohydrate|safe}}, {{fat|safe}}],
+          backgroundColor: [
+            "#EFD1B9",
+            "#FCD900",
+            "#A9A9A9",
+            "#C0C0C0",
+            "#D3D3D3",
+          ],
+          label: "Population",
+        },
+      ],
+      labels: labels,
+    },
+    options: {
+      responsive: true,
+      legend: {
+        position: "bottom",
+      },
+    },
+  };
+
+  var ctx = document.getElementById("pie-chart").getContext("2d");
+  let myPie = new Chart(ctx, config);
+</script>
+<script>
+
+  let myLine = new Chart(document.getElementById("line-chart"), {
+    type: "line",
+    data: {
+      labels: {{labels|safe}},
+      datasets: [{
+        label: 'Goal Weight (1% loss per week)',
+        data: {% for data in data_set%}{{data|safe}}{% endfor %},
+        fill: '#26ABE6',
+        backgroundColor: '#26ABE6'
+      },
+      {% if checkin %}
+        {
+          label: 'Actual Weight',
+          data: {% for weigh in weight %}{{weigh|safe}}{% endfor %},
+          fill: '#26E63D',
+          backgroundColor: '#26E63D'
+        }
+      {% endif %}],
+    }
+  });
+</script>
+{% include "footer.html" %} {% endblock %}
