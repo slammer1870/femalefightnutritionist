@@ -1,0 +1,1 @@
+web: gunicorn femalefightnutritionist.wsgi --log-file - --timeout 90
