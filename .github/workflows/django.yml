@@ -29,5 +29,9 @@ jobs:
       env:
         ## Environment variable for step 1
         SECRET_KEY: XXXXXXXXXXXX
+        STRIPE_SECRET_KEY: ${{env.STRIPE_SECRET_KEY}}
+        SENDGRID_API_KEY: ${{ env.SENDGRID_API_KEY }}
+        DEFAULT_FROM_EMAIL: ${{ env.DEFAULT_FROM_EMAIL }}
+
       run: |
         python manage.py test
