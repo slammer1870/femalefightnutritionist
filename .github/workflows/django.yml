@@ -29,6 +29,7 @@ jobs:
       env:
         ## Environment variables
         SECRET_KEY: XXXXXXXXXXXX
+        LOCAL: True
         STRIPE_SECRET_KEY: ${{env.STRIPE_SECRET_KEY}}
         SENDGRID_API_KEY: ${{ env.SENDGRID_API_KEY }}
         DEFAULT_FROM_EMAIL: ${{ env.DEFAULT_FROM_EMAIL }}
