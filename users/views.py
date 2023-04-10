@@ -19,7 +19,7 @@ def register(request):
         form = RegisterForm()
     return render(request, 'registration/register.html', {'form': form})
 
-#Login Required
+#Login Required.
 class DashboardView(LoginRequiredMixin, View):
 
     def get(self, request):
