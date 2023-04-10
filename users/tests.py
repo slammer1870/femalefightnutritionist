@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
 
 from .models import CustomUser
@@ -14,11 +14,11 @@ class UserRegistrationTestCase(TestCase):
         }
 
         # Act
-        response = self.client.post(reverse('register'), data=data)
+        response = self.client.post(reverse('users:register'), data=data)
 
         # Assert
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('dashboard'))
+        self.assertRedirects(response, reverse('users:dashboard'))
 
         user = CustomUser.objects.get(email='testuser@example.com')
 
@@ -32,15 +32,14 @@ class UserLoginTestCase(TestCase):
         # Arrange
         self.user = CustomUser.objects.create_user(
             email='testuser@example.com', password='testpassword')
+        self.user.save()
 
     def test_user_login(self):
-        # Act
-        response = self.client.post(
-            reverse('login'), {'email': 'testuser@example.com', 'password': 'testpassword'})
 
-        # Assert
-        self.assertEqual(response.status_code, 200)
-        #self.assertRedirects(response, reverse('dashboard'))
+        logged_in = self.client.login(
+            email='testuser@example.com', password='testpassword')
+
+        self.assertEqual(logged_in, True)
 
     def test_user_logout(self):
         # Arrange
@@ -48,7 +47,7 @@ class UserLoginTestCase(TestCase):
                           password='testpassword')
 
         # Act
-        response = self.client.post(reverse('logout'))
+        response = self.client.post(reverse('users:logout'))
 
         # Assert
         self.assertEqual(response.status_code, 302)
