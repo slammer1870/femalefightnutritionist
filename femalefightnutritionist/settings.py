@@ -17,6 +17,7 @@ import dj_database_url
 import environ
 from django.contrib.messages import constants as messages
 
+#Tailwind build to set these colours
 MESSAGE_TAGS = {
     messages.DEBUG: 'bg-purple-400',
     messages.INFO: 'bg-indigo-400',
