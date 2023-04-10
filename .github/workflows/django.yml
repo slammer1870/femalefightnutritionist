@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       env:
-        ## Environment variable for step 1
+        ## Environment variables
         SECRET_KEY: XXXXXXXXXXXX
         STRIPE_SECRET_KEY: ${{env.STRIPE_SECRET_KEY}}
         SENDGRID_API_KEY: ${{ env.SENDGRID_API_KEY }}
