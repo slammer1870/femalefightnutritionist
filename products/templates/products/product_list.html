@@ -7,7 +7,7 @@
       Products
     </a>
     <a
-      hx-get="{% url 'index' %}"
+      hx-get="{% url 'orders:order-list' %}"
       class="title-font inline-flex w-1/2 items-center justify-center border-b-2 border-gray-200 py-3 font-medium uppercase leading-none tracking-wider hover:text-gray-900"
     >
       Orders
@@ -16,7 +16,7 @@
   {% for product in object_list %}
   <div>
     <img
-      class="aspect-video mx-auto mb-4 h-full w-full object-cover lg:w-1/2"
+      class="aspect-video mx-auto mb-4 h-full w-full object-cover"
       src="{{MEDIA.URL}}{{product.thumbnail.url}}"
       alt="thumbnail"
     />

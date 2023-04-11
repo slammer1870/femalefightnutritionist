@@ -54,6 +54,12 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -72,9 +78,13 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
 
+    'cloudinary',
+    'cloudinary_storage',
+
     'base',
     'users',
-    'products'
+    'products',
+    'orders'
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -171,6 +181,8 @@ STATICFILES_DIRS = (
 )
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

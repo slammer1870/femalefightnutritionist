@@ -38,4 +38,5 @@ urlpatterns = [
          name="password_reset_complete"),
     path('users/', include('users.urls', namespace='users')),
     path('products/', include('products.urls', namespace='products')),
+    path('orders/', include('orders.urls', namespace='orders')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,60 @@
+{% extends 'orders/order_layout.html' %}{% block body %} {% load tailwind_filters %}
+<div class="mx-auto max-w-screen-sm">
+  <h1 class="mb-4 text-center text-4xl">Journal</h1>
+  <!--Navigation-->
+  <div class="flex">
+    <span class="mx-auto font-light">{{today|date:"D, d F, Y"}}</span>
+  </div>
+  {% for meal in object_list %}
+  <div class="p-4 lg:px-0">
+    <h5 class="mb-4 text-2xl">{{meal.name}}</h5>
+    <div class="flex flex-col bg-gray-100 p-4">
+      <div class="mb-2 flex justify-between">
+        <div class="flex flex-col items-start">
+          <span class="font-semibold">Protein</span>
+          <p class="text-sm">{{meal.protein}} grams</p>
+        </div>
+        <div class="flex flex-col items-start">
+          <span class="font-semibold">Carbs</span>
+          <p class="text-sm">{{meal.carbohydrate}} grams</p>
+        </div>
+        <div class="flex flex-col items-start">
+          <span class="font-semibold">Fat</span>
+          <p class="text-sm">{{meal.fat}} grams</p>
+        </div>
+      </div>
+      <div>
+        <div class="mb-2 flex items-center">
+          <span class="mr-4 font-semibold">Hydration</span>
+          <p class="text-sm">{{meal.hydration}} litres</p>
+        </div>
+        <div class="flex items-center">
+          <span class="mr-4 font-semibold">Supplements</span>
+          <p class="text-sm">{{meal.suplements}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="p-4 lg:px-0">
+    <form
+      method="POST"
+      action="."
+      class="mb-4 flex h-auto w-full max-w-screen-sm flex-col rounded-lg border border-gray-200 p-4"
+    >
+      {% csrf_token %}
+      <h5 class="mb-4 text-xl">Add a new meal:</h5>
+      <div class="mb-4">{{form|crispy}}</div>
+      <div class="mb-2 flex">
+        <button
+          type="submit"
+          class="ml-auto rounded bg-gray-800 px-4 py-2 font-medium uppercase text-white"
+          value="Submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  {% endblock body %}
+</div>

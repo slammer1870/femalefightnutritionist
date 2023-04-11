@@ -1,0 +1,118 @@
+{% extends 'base.html' %} {% block content %}
+<div class="relative h-screen overflow-y-scroll">
+  <div class="container mx-auto px-4 py-24 lg:px-0">
+    <div class="mb-4 flex w-full">
+      <a href="{% url 'users:dashboard' %}">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="67"
+          height="31"
+          viewBox="0 0 67 31"
+          class="rounded-md"
+        >
+          <rect
+            id="Rectangle_36"
+            data-name="Rectangle 36"
+            width="67"
+            height="31"
+            transform="translate(67 31) rotate(180)"
+            fill="#c4c4c4"
+          />
+          <g
+            id="Polygon_1"
+            data-name="Polygon 1"
+            transform="translate(12.5 23.5) rotate(-90)"
+            fill="#fff"
+          >
+            <path
+              d="M 14.96349906921387 10 L 2.036501407623291 10 L 8.5 1.635472297668457 L 14.96349906921387 10 Z"
+              stroke="none"
+            />
+            <path
+              d="M 8.5 3.270931720733643 L 4.072992324829102 9 L 12.9270076751709 9 L 8.5 3.270931720733643 M 8.5 0 L 17 11 L 0 11 L 8.5 0 Z"
+              stroke="none"
+              fill="#fff"
+            />
+          </g>
+          <line
+            id="Line_14"
+            data-name="Line 14"
+            x2="31"
+            transform="translate(54.5 14.5) rotate(180)"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+          /></svg
+      ></a>
+    </div>
+    {{ request.path.ends_with }} {% block body %}{% endblock body %}
+  </div>
+  <div
+    class="fixed bottom-0 left-0 flex w-full items-center justify-around bg-gray-400 p-4 text-sm text-white z-50"
+  >
+    <div
+      class="{% if journal %}opacity-100{% else %}opacity-50{% endif %} flex-col items-center justify-center"
+    >
+      <a href="">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="27.711"
+          height="24.632"
+          viewBox="0 0 27.711 24.632"
+          class="mx-auto mr-1"
+        >
+          <path
+            id="file-signature-solid"
+            d="M10.5,20.4a.533.533,0,0,0-.489-.314.525.525,0,0,0-.482.3l-.369.738a.77.77,0,0,1-1.418-.1L6.928,18.6l-.51,1.534a2.077,2.077,0,0,1-1.972,1.421h-.6a.77.77,0,1,1,0-1.539h.6a.539.539,0,0,0,.512-.369l.875-2.629a1.155,1.155,0,0,1,2.191,0l.668,2a2.159,2.159,0,0,1,3.175.681.546.546,0,0,0,.45.3V16.051l6.158-6.114V7.7H11.931a1.158,1.158,0,0,1-1.155-1.155V0H1.155A1.152,1.152,0,0,0,0,1.155V23.477a1.152,1.152,0,0,0,1.155,1.155H17.319a1.152,1.152,0,0,0,1.155-1.155V21.553l-6.158-.005A2.066,2.066,0,0,1,10.5,20.4Zm7.978-14.54a1.151,1.151,0,0,0-.337-.813L13.427.337A1.154,1.154,0,0,0,12.609,0h-.293V6.158h6.158ZM13.855,16.692v3.321h3.319l7.778-7.831L21.687,8.917Zm13.5-8.642L25.819,6.517a1.225,1.225,0,0,0-1.732,0L22.775,7.828l3.266,3.266,1.311-1.311a1.224,1.224,0,0,0,0-1.732Z"
+            fill="#fff"
+          />
+        </svg>
+        <span>Journal</span></a
+      >
+    </div>
+    <div
+      class="{% if checkins or checkin %}opacity-100{% else %}opacity-50{% endif %} flex-col items-center justify-center"
+    >
+      <a href="">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          viewBox="0 0 26 26"
+          class="mx-auto"
+        >
+          <path
+            id="clock-solid"
+            d="M21,8A13,13,0,1,0,34,21,13,13,0,0,0,21,8Zm4.848,16.407h0L24.8,25.718a.839.839,0,0,1-1.179.131h0l-3.512-2.606a2.1,2.1,0,0,1-.786-1.637V13.452a.839.839,0,0,1,.839-.839h1.677a.839.839,0,0,1,.839.839V21l3.04,2.228A.839.839,0,0,1,25.848,24.407Z"
+            transform="translate(-8 -8)"
+            fill="#fff"
+          />
+        </svg>
+
+        <span>Check In</span></a
+      >
+    </div>
+    <div
+      class="{% if program %}opacity-100{% else %}opacity-50{% endif %} flex-col items-center justify-center"
+    >
+      <a href="">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21.553"
+          height="24.632"
+          viewBox="0 0 21.553 24.632"
+          class="mx-auto"
+        >
+          <path
+            id="book-solid"
+            d="M21.553,17.319V1.155A1.152,1.152,0,0,0,20.4,0H4.618A4.62,4.62,0,0,0,0,4.618V20.013a4.62,4.62,0,0,0,4.618,4.618H20.4a1.152,1.152,0,0,0,1.155-1.155v-.77a1.164,1.164,0,0,0-.428-.9,10.729,10.729,0,0,1,0-3.594,1.147,1.147,0,0,0,.428-.895ZM6.158,6.447a.29.29,0,0,1,.289-.289h10.2a.29.29,0,0,1,.289.289v.962a.29.29,0,0,1-.289.289H6.447a.29.29,0,0,1-.289-.289Zm0,3.079a.29.29,0,0,1,.289-.289h10.2a.29.29,0,0,1,.289.289v.962a.29.29,0,0,1-.289.289H6.447a.29.29,0,0,1-.289-.289ZM18.349,21.553H4.618a1.539,1.539,0,0,1,0-3.079h13.73A17.32,17.32,0,0,0,18.349,21.553Z"
+            fill="#fff"
+          />
+        </svg>
+
+        <span>Program</span></a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}
