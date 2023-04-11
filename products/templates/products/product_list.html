@@ -1,0 +1,46 @@
+<div>
+  <div class="mb-4 flex w-full cursor-pointer justify-center">
+    <a
+      hx-get="{% url 'products:product-list' %}"
+      class="title-font inline-flex w-1/2 items-center justify-center rounded-t border-b-2 border-indigo-500 bg-gray-100 py-3 font-medium uppercase leading-none tracking-wider text-indigo-500"
+    >
+      Products
+    </a>
+    <a
+      hx-get="{% url 'index' %}"
+      class="title-font inline-flex w-1/2 items-center justify-center border-b-2 border-gray-200 py-3 font-medium uppercase leading-none tracking-wider hover:text-gray-900"
+    >
+      Orders
+    </a>
+  </div>
+  {% for product in object_list %}
+  <div>
+    <img
+      class="aspect-video mx-auto mb-4 h-full w-full object-cover lg:w-1/2"
+      src="{{MEDIA.URL}}{{product.thumbnail.url}}"
+      alt="thumbnail"
+    />
+    <div class="mx-auto mb-8 flex w-full flex-col">
+      <h1 class="title-font text-xl font-medium text-gray-900">
+        {{product.name}}
+      </h1>
+      <p class="mb-4 text-base leading-relaxed lg:w-2/3">
+        {{product.description}}
+      </p>
+      <form class="flex items-center justify-between" method="POST" action=".">
+        {% csrf_token %}
+        <div>
+          <span class="font-semibold">€{{product.price}}</span>{% if product.frequency %}{{product.frequency}}{% endif %}
+        </div>
+        <button
+          type="submit"
+          class="rounded bg-indigo-500 px-4 py-1 text-white"
+        >
+          Buy Now
+        </button>
+        <input type="hidden" name="product" value="{{product}}" />
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
