@@ -27,7 +27,11 @@
       <p class="mb-4 text-base leading-relaxed lg:w-2/3">
         {{product.description}}
       </p>
-      <form class="flex items-center justify-between" method="POST" action=".">
+      <form
+        class="flex items-center justify-between"
+        method="POST"
+        action="{% url 'products:product-list' %}"
+      >
         {% csrf_token %}
         <div>
           <span class="font-semibold">€{{product.price}}</span>{% if product.frequency %}{{product.frequency}}{% endif %}
