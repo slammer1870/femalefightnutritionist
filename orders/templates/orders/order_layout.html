@@ -48,12 +48,12 @@
     {{ request.path.ends_with }} {% block body %}{% endblock body %}
   </div>
   <div
-    class="fixed bottom-0 left-0 flex w-full items-center justify-around bg-gray-400 p-4 text-sm text-white z-50"
+    class="fixed bottom-0 left-0 z-50 flex w-full items-center justify-around bg-gray-400 p-4 text-sm text-white"
   >
     <div
       class="{% if journal %}opacity-100{% else %}opacity-50{% endif %} flex-col items-center justify-center"
     >
-      <a href="">
+      <a href="{% url 'orders:order-journal' pk %}">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="27.711"
@@ -73,7 +73,7 @@
     <div
       class="{% if checkins or checkin %}opacity-100{% else %}opacity-50{% endif %} flex-col items-center justify-center"
     >
-      <a href="">
+      <a href="{% url 'orders:checkin-list' pk %}">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="26"

@@ -7,7 +7,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 
 from .forms import JournalForm
-from .models import Journal, Order
+from .models import CheckIn, Journal, Order
 
 # Create your views here.
 
@@ -37,6 +37,7 @@ class JournalListView(FormMixin, ListView):
         context['form'] = JournalForm()
         context['journal'] = True
         context['today'] = datetime.today()
+        context['pk'] = self.kwargs['pk']
         return context
 
     def post(self, request, *args, **kwargs):
@@ -54,3 +55,21 @@ class JournalListView(FormMixin, ListView):
 
     def get_success_url(self):
         return reverse('orders:order-journal', kwargs={'pk': self.kwargs['pk']})
+
+
+class CheckInListView(ListView):
+    template_name = 'orders/order_checkin_list.html'
+
+    model = CheckIn
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['checkin'] = True
+        context['pk'] = self.kwargs['pk']
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        if CheckIn.objects.filter(order__user=self.request.user, order_id=self.kwargs['pk']).exists():
+            return CheckIn.objects.filter(order__user=self.request.user, order_id=self.kwargs['pk'])
+        else:
+            return CheckIn.objects.none()
