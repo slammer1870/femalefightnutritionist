@@ -59,6 +59,12 @@ CLOUDINARY_STORAGE = {
     'API_KEY': env('CLOUDINARY_API_KEY'),
     'API_SECRET': env('CLOUDINARY_API_SECRET'),
 }
+STRIPE_LIVE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
+STRIPE_TEST_SECRET_KEY = env("STRIPE_TEST_SECRET_KEY")
+STRIPE_LIVE_MODE = False  # Change to True in production
+# Get it from the section in the Stripe dashboard where you added the webhook endpoint
+DJSTRIPE_WEBHOOK_SECRET = "whsec_51895ee154034606eae27ca21b3330fd6927bf1635f9019bf8f050bf92b129c1"
+DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
 # Application definition
 
@@ -78,8 +84,12 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
 
+<<<<<<< HEAD
     'cloudinary',
     'cloudinary_storage',
+=======
+    "djstripe",
+>>>>>>> add: dj-stripe
 
     'base',
     'users',
