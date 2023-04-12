@@ -53,7 +53,7 @@
     <div
       class="{% if journal %}opacity-100{% else %}opacity-50{% endif %} flex-col items-center justify-center"
     >
-      <a href="{% url 'orders:order-journal' pk %}">
+      <a href="{% url 'orders:journal-list' pk %}">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="27.711"
@@ -95,7 +95,7 @@
     <div
       class="{% if program %}opacity-100{% else %}opacity-50{% endif %} flex-col items-center justify-center"
     >
-      <a href="">
+      <a href="{% url 'orders:program-view' pk %}">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="21.553"

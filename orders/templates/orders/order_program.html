@@ -1,0 +1,13 @@
+{% extends 'orders/order_layout.html' %}{% block body %}
+<div class="mx-auto max-w-screen-sm">
+  <h1 class="mb-4 text-center text-4xl">Program</h1>
+  <!--Navigation-->
+  <div
+      id="tabs"
+      hx-get="{% url 'orders:program-date' pk today %}"
+      hx-trigger="load delay:100ms"
+      hx-target="#tabs"
+      hx-swap="innerHTML"
+    ></div>
+</div>
+{% endblock %}

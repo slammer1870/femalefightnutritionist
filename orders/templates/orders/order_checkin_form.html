@@ -1,0 +1,20 @@
+{% extends 'orders/order_layout.html' %}{% block body %} {% load tailwind_filters %}
+<div class="mx-auto max-w-screen-md">
+  <h1 class="mb-4 text-center text-4xl">Check In Form</h1>
+  <form
+    method="POST"
+    action="."
+  >
+    {% csrf_token %} {{form|crispy}}
+    <div class="mb-2 flex">
+      <button
+        type="submit"
+        class="ml-auto rounded bg-gray-800 px-4 py-2 font-medium uppercase text-white"
+        value="Submit"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock body %}

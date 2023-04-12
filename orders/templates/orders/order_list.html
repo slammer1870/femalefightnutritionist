@@ -14,7 +14,7 @@
     </a>
   </div>
   {% for order in object_list %}
-    <a href={% url 'orders:order-journal' order.id %} class="w-full py-2 px-4 xl:px-0">
+    <a href={% url 'orders:journal-list' order.id %} class="w-full">
         <div
             class="flex items-center justify-between rounded-lg border border-gray-200 p-6"
         >

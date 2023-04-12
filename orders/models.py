@@ -93,3 +93,38 @@ class CheckIn(models.Model):
         verbose_name='Describe your digestive issues  or write "n/a" if you did not have any', max_length=400, blank=True)
     bowel_frequency = models.CharField(verbose_name='How frequent were your bowl movements this week?',
                                        max_length=400, choices=BOWEL_CHOICES, blank=True)
+
+
+class Program(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    date = models.DateField()
+    protein = models.IntegerField()
+    carbohydrate = models.IntegerField()
+    fat = models.IntegerField()
+    hydration = models.IntegerField()
+    suplements = models.CharField(max_length=400)
+
+
+class InitialCheckIn(models.Model):
+    order = models.ForeignKey(
+        'Order',
+        on_delete=models.CASCADE,
+        related_name='initial_checkin'
+    )
+    checkin_time = models.DateTimeField(auto_now_add=True)
+
+    starting_weight = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+    )
+    goal_weight = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+    )
+    start_date = models.DateField(
+        auto_now_add=True
+    )
+    comp_date = models.DateField(verbose_name="Competition Date (YYYY-MM-DD)")
+
+    def __str__(self):
+        return str(self.order)
