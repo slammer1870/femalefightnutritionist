@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import forms
 from django.forms import ModelForm
 
@@ -23,8 +25,20 @@ class CheckInForm(ModelForm):
         model = CheckIn
         exclude = ['order', 'date']
 
+    def clean_date(self):
+        date = self.cleaned_data['date']
+        if date < datetime.date.today():
+            raise forms.ValidationError("The date cannot be in the past!")
+        return date
+
 
 class InitialCheckInForm(ModelForm):
     class Meta:
         model = InitialCheckIn
         exclude = ['order', ]
+
+    def clean_date(self):
+        date = self.cleaned_data['date']
+        if date < datetime.date.today():
+            raise forms.ValidationError("The date cannot be in the past!")
+        return date
