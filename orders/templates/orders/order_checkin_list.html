@@ -1,7 +1,7 @@
 {% extends 'orders/order_layout.html' %}{% block body %}
 <div>
     <h1 class="text-4xl text-center mb-4">Check In Schedule</h1>
-    <div class="flex flex-wrap -m-4">
+    <div class="flex flex-wrap -m-4 p-4">
       {% if object_list %}
         {% for checkin in object_list %}
         <a href={% url 'orders:checkin-form' pk=pk id=checkin.id %} class="xl:w-1/3 md:w-1/2 w-full py-2">
@@ -65,9 +65,7 @@
         </a>
         {% endfor %}
         {% else %}
-          <div class="p-4">
             <p>It looks like you have not been assigned any check ins yet, your schedule should appear here shortly!</p>
-          </div>
         {% endif %}
     </div>
   </div>
