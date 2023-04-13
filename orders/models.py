@@ -32,6 +32,16 @@ class Journal(models.Model):
         verbose_name="Hydration (in litres)", blank=True, null=True)
     suplements = models.CharField(max_length=400, null=True, blank=True)
 
+    @property
+    def total_calories(self):
+        if self.protein and self.carbohydrate and self.fat:
+            return (self.protein*4 + self.carbohydrate*4 + self.fat*9)
+        else:
+            return None
+
+    def __str__(self):
+        return "{0} - {1}".format(self.name, str(self.date))
+
 
 ENERGY_CHOICES = [('Very Low', 'Very Low'), ('Low', 'Low'),
                   ('Average', 'Average'), ('High', 'High'), ('Very High', 'Very High')]
@@ -97,6 +107,9 @@ class CheckIn(models.Model):
     bowel_frequency = models.CharField(verbose_name='How frequent were your bowl movements this week?',
                                        max_length=400, choices=BOWEL_CHOICES, blank=True)
 
+    def __str__(self):
+        return "Check In - {0}".format(str(self.date))
+
 
 class Program(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -107,9 +120,12 @@ class Program(models.Model):
     hydration = models.IntegerField()
     suplements = models.CharField(max_length=400)
 
+    def __str__(self):
+        return "Program - {0}".format(str(self.date))
+
 
 class InitialCheckIn(models.Model):
-    order = models.ForeignKey(
+    order = models.OneToOneField(
         'Order',
         on_delete=models.CASCADE,
         related_name='initial_checkin'

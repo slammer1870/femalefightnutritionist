@@ -20,7 +20,7 @@
       >
         <div>
           <h2 class="title-font mb-2 text-lg font-medium text-gray-900">
-            {{order.product}} - {{order.purchase_date}}
+            {{order.product}} - {{order.purchase_date|date:"D, d F, Y"}}
           </h2>
           <p class="text-base leading-relaxed">{{order.product.description}}</p>
         </div>

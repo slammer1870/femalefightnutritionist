@@ -88,6 +88,8 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     "djstripe",
 
+    'nested_admin',
+
     'base',
     'users',
     'products',
