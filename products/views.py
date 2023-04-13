@@ -2,8 +2,7 @@ import stripe
 from django.conf import settings
 from django.shortcuts import redirect
 from django.views.generic import ListView
-
-from .models import Product
+from djstripe.models import Product
 
 # Create your views here.
 
@@ -17,8 +16,17 @@ class ProductListView(ListView):
     def post(self, request):
         customer_id = request.user.stripe_customer_id
 
+        print('products is', request.POST.get('product'))
+
         # Gets the membership type from hidden input in form
-        product = Product.objects.get(name=request.POST.get('product'))
+        product = Product.objects.get(id=request.POST.get('product'))
+
+        print(product.prices.first().type)
+
+        if product.prices.first().type == "one_time":
+            mode = "payment"
+        else:
+            mode = "subscription"
 
         try:
             checkout_session = stripe.checkout.Session.create(
@@ -26,12 +34,12 @@ class ProductListView(ListView):
                 payment_method_types=['card'],
                 line_items=[
                     {
-                        'price': product.stripe_price_id,
+                        'price': product.prices.first().id,
                         'quantity': 1,
                     },
                 ],
 
-                mode=product.mode,
+                mode=mode,
                 allow_promotion_codes=True,
                 # Redirects to referer url
                 success_url=request.build_absolute_uri() +

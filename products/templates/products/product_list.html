@@ -17,7 +17,7 @@
   <div>
     <img
       class="aspect-video mx-auto mb-4 h-full w-full object-cover"
-      src="{{MEDIA.URL}}{{product.thumbnail.url}}"
+      src="{{product.images.0}}"
       alt="thumbnail"
     />
     <div class="mx-auto mb-8 flex w-full flex-col">
@@ -34,7 +34,9 @@
       >
         {% csrf_token %}
         <div>
-          <span class="font-semibold">€{{product.price}}</span>{% if product.frequency %}{{product.frequency}}{% endif %}
+          <span class="font-semibold"
+            >{{product.prices.first.human_readable_price}}</span
+          >{% if product.frequency %}{{product.frequency}}{% endif %}
         </div>
         <button
           type="submit"
@@ -42,7 +44,7 @@
         >
           Buy Now
         </button>
-        <input type="hidden" name="product" value="{{product}}" />
+        <input type="hidden" name="product" value="{{product.id}}" />
       </form>
     </div>
   </div>

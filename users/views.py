@@ -40,7 +40,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         if order.exists():
 
             initial_checkin = InitialCheckIn.objects.filter(
-                order=order.last(), comp_date__gte=datetime.today())
+                order=order.first(), comp_date__gte=datetime.today())
 
             if initial_checkin.exists():
 
@@ -94,13 +94,13 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         if order.exists():
 
             initial_checkin = InitialCheckIn.objects.filter(
-                order=order.last(), comp_date__gte=datetime.today())
+                order=order.first(), comp_date__gte=datetime.today())
 
-        if initial_checkin.exists() and order.last().checkin_set.exists():
+        if initial_checkin.exists() and order.first().checkin_set.exists():
 
             initial_checkin = initial_checkin.first()
 
-            checkins = order.last().checkin_set.all()
+            checkins = order.first().checkin_set.all()
 
             weight = [{'x': initial_checkin.start_date.strftime(
                 "%y-%m-%d"), 'y': initial_checkin.starting_weight}]
@@ -119,11 +119,11 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         if order.exists():
 
             initial_checkin = InitialCheckIn.objects.filter(
-                order=order.last(), comp_date__gte=datetime.today())
+                order=order.first(), comp_date__gte=datetime.today())
 
-        if initial_checkin.exists() and order.last().program_set.exists():
+        if initial_checkin.exists() and order.first().program_set.exists():
 
-            program = order.last().program_set.filter(date=datetime.today())
+            program = order.first().program_set.filter(date=datetime.today())
 
             if program.exists():
                 program = program.first()

@@ -18,7 +18,7 @@ class OrderListView(ListView):
     template_name = "orders/order_list.html"
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user).order_by('-purchase_date')
+        return Order.objects.filter(user=self.request.user)
 
 
 @method_decorator(user_owns_order, name="dispatch")
