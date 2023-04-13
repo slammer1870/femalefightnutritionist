@@ -3,11 +3,12 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic import ListView
+from djstripe import settings as djstripe_settings
 from djstripe.models import Product
 
 # Create your views here.
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = djstripe_settings.djstripe_settings.STRIPE_SECRET_KEY
 
 
 class ProductListView(LoginRequiredMixin, ListView):

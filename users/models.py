@@ -1,4 +1,3 @@
-# Create your models here.
 import stripe
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
@@ -8,8 +7,12 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from djstripe import settings as djstripe_settings
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+# Create your views here.
+
+stripe.api_key = djstripe_settings.djstripe_settings.STRIPE_SECRET_KEY
+
 
 class CustomUserManager(BaseUserManager):
     """
