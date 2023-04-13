@@ -10,7 +10,14 @@ from .decorators import has_completed_checkin, user_owns_order
 from .forms import CheckInForm, InitialCheckInForm, JournalForm
 from .models import CheckIn, InitialCheckIn, Journal, Order, Program
 
+from djstripe import webhooks
+
 # Create your views here.
+
+
+@webhooks.handler("checkout.session.completed", "customer.subscription.updated")
+def create_new_order(event, **kwargs):
+    print("event is", event)
 
 
 class OrderListView(ListView):
