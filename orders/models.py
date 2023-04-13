@@ -1,18 +1,21 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-
-from products.models import Product
+from djstripe.models import Product
 
 # Create your models here.
 
 
 class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, on_delete=models.PROTECT, db_constraint=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     stripe_purchase_id = models.CharField(max_length=250)
     purchase_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-purchase_date']  # Sort in desc order
 
     def __str__(self):
         return "User: {0}, Order: {1}".format(self.user.first_name, str(self.id))
