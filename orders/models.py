@@ -1,14 +1,14 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-
-from products.models import Product
+from djstripe.models import Product
 
 # Create your models here.
 
 
 class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, on_delete=models.PROTECT, db_constraint=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     stripe_purchase_id = models.CharField(max_length=250)

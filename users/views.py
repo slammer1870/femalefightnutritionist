@@ -96,20 +96,20 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             initial_checkin = InitialCheckIn.objects.filter(
                 order=order.first(), comp_date__gte=datetime.today())
 
-        if initial_checkin.exists() and order.first().checkin_set.exists():
+            if initial_checkin.exists() and order.first().checkin_set.exists():
 
-            initial_checkin = initial_checkin.first()
+                initial_checkin = initial_checkin.first()
 
-            checkins = order.first().checkin_set.all()
+                checkins = order.first().checkin_set.all()
 
-            weight = [{'x': initial_checkin.start_date.strftime(
-                "%y-%m-%d"), 'y': initial_checkin.starting_weight}]
+                weight = [{'x': initial_checkin.start_date.strftime(
+                    "%y-%m-%d"), 'y': initial_checkin.starting_weight}]
 
-            for checkin in checkins:
-                if (checkin.current_weight):
-                    weight.append(
-                        {'x': checkin.date.strftime("%y-%m-%d"), 'y': int(checkin.current_weight)})
-            return weight
+                for checkin in checkins:
+                    if (checkin.current_weight):
+                        weight.append(
+                            {'x': checkin.date.strftime("%y-%m-%d"), 'y': int(checkin.current_weight)})
+                return weight
 
         return None
 
@@ -121,25 +121,25 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             initial_checkin = InitialCheckIn.objects.filter(
                 order=order.first(), comp_date__gte=datetime.today())
 
-        if initial_checkin.exists() and order.first().program_set.exists():
+            if initial_checkin.exists() and order.first().program_set.exists():
 
-            program = order.first().program_set.filter(date=datetime.today())
+                program = order.first().program_set.filter(date=datetime.today())
 
-            if program.exists():
-                program = program.first()
+                if program.exists():
+                    program = program.first()
 
-                total_protein = program.protein
-                total_carbs = program.carbohydrate
-                total_fat = program.fat
-                total_calories = total_protein*4 + total_carbs*4 + total_fat*9
+                    total_protein = program.protein
+                    total_carbs = program.carbohydrate
+                    total_fat = program.fat
+                    total_calories = total_protein*4 + total_carbs*4 + total_fat*9
 
-                nutrients = {
-                    'protein': total_protein,
-                    'carbohydrate': total_carbs,
-                    'fat': total_fat,
-                    'calories': total_calories
-                }
-                return nutrients
+                    nutrients = {
+                        'protein': total_protein,
+                        'carbohydrate': total_carbs,
+                        'fat': total_fat,
+                        'calories': total_calories
+                    }
+                    return nutrients
         return None
 
     def get_context_data(self, **kwargs):

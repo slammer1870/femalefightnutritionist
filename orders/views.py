@@ -1,23 +1,71 @@
 from datetime import datetime, timedelta
 
+import stripe
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, ListView, TemplateView, UpdateView
 from django.views.generic.edit import FormMixin
+from djstripe import settings as djstripe_settings
+from djstripe import webhooks
+from djstripe.models import Price
+
+from users.models import CustomUser
 
 from .decorators import has_completed_checkin, user_owns_order
 from .forms import CheckInForm, InitialCheckInForm, JournalForm
-from .models import CheckIn, InitialCheckIn, Journal, Order, Program
+from .models import CheckIn, Journal, Order, Program
 
-from djstripe import webhooks
+stripe.api_key = djstripe_settings.djstripe_settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 
 
-@webhooks.handler("checkout.session.completed", "customer.subscription.updated")
+@webhooks.handler('checkout.session.completed', 'customer.subscription.updated')
 def create_new_order(event, **kwargs):
-    print("event is", event)
+
+    print("webhook initiated", event)
+
+    # Retireve Event
+    stripe_event = stripe.Event.retrieve(event.id)
+
+    print("stripe event", stripe_event)
+
+    user = CustomUser.objects.get(
+        stripe_customer_id=stripe_event.data.object.customer)
+
+    # Check Event Type
+
+    # If event is a checkout session:
+    if (event.type == 'checkout.session.completed'):
+        line_items = stripe.checkout.Session.list_line_items(
+            stripe_event.data.object.id, limit=5)
+
+        price = line_items.data[0].price.id
+
+        stripe_price = Price.objects.get(id=price)
+
+        product = stripe_price.product
+
+        order = Order.objects.create(user=user, product=product,
+                                     stripe_purchase_id=stripe_event.data.object.payment_intent or stripe_event.data.object.subscription)
+
+        return
+
+    if (event.type == 'customer.subscription.updated'):
+
+        price = stripe_event.data.object.items.data[0].price.id
+
+        stripe_price = Price.objects.get(id=price)
+
+        product = stripe_price.product
+
+        order, created = Order.objects.get_or_create(
+            user=user, product=product, stripe_purchase_id=stripe_event.data.object.id)
+
+        return
+
+    return
 
 
 class OrderListView(ListView):
@@ -28,7 +76,7 @@ class OrderListView(ListView):
         return Order.objects.filter(user=self.request.user)
 
 
-@method_decorator(user_owns_order, name="dispatch")
+@ method_decorator(user_owns_order, name="dispatch")
 class InitialCheckinView(FormView):
     template_name = "orders/initial_checkin.html"
     form_class = InitialCheckInForm
@@ -58,7 +106,7 @@ class InitialCheckinView(FormView):
         return reverse('orders:journal-list', kwargs={'pk': self.kwargs['pk']})
 
 
-@method_decorator(has_completed_checkin, name="dispatch")
+@ method_decorator(has_completed_checkin, name="dispatch")
 class JournalListView(FormMixin, ListView):
 
     template_name = "orders/order_journal_list.html"
@@ -96,7 +144,7 @@ class JournalListView(FormMixin, ListView):
         return reverse('orders:journal-list', kwargs={'pk': self.kwargs['pk']})
 
 
-@method_decorator(has_completed_checkin, name="dispatch")
+@ method_decorator(has_completed_checkin, name="dispatch")
 class CheckInListView(ListView):
     template_name = 'orders/order_checkin_list.html'
 
@@ -115,7 +163,7 @@ class CheckInListView(ListView):
             return CheckIn.objects.none()
 
 
-@method_decorator(has_completed_checkin, name="dispatch")
+@ method_decorator(has_completed_checkin, name="dispatch")
 class CheckInFormView(UpdateView):
 
     template_name = 'orders/order_checkin_form.html'
@@ -136,7 +184,7 @@ class CheckInFormView(UpdateView):
         return context
 
 
-@method_decorator(has_completed_checkin, name="dispatch")
+@ method_decorator(has_completed_checkin, name="dispatch")
 class ProgramView(TemplateView):
 
     template_name = 'orders/order_program.html'
@@ -149,7 +197,7 @@ class ProgramView(TemplateView):
         return context
 
 
-@method_decorator(has_completed_checkin, name="dispatch")
+@ method_decorator(has_completed_checkin, name="dispatch")
 class ProgramDateView(TemplateView):
 
     template_name = 'orders/order_program_date.html'
