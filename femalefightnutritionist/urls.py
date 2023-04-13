@@ -39,7 +39,6 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('products/', include('products.urls', namespace='products')),
     path('orders/', include('orders.urls', namespace='orders')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     path("stripe/", include("djstripe.urls", namespace="djstripe")),
 
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

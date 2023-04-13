@@ -84,12 +84,9 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
 
-<<<<<<< HEAD
     'cloudinary',
     'cloudinary_storage',
-=======
     "djstripe",
->>>>>>> add: dj-stripe
 
     'base',
     'users',
