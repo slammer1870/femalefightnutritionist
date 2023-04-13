@@ -59,8 +59,7 @@ class CustomUserAdmin(NestedModelAdmin):
     ordering = ('email',)
     exclude = ('is_staff', 'is_superuser', 'is_active',
                'groups', 'user_permissions', 'password')
-    readonly_fields = ('email', 'first_name', 'last_name',
-                       'stripe_customer_id', 'date_joined', 'last_login')
+    readonly_fields = ('email', 'stripe_customer_id', 'date_joined', 'last_login')
 
     inlines = [OrderNestedInline]
 
