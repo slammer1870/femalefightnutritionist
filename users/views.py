@@ -1,14 +1,20 @@
 from datetime import datetime, timedelta
 
 import simplejson as json
+import stripe
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
+from djstripe import settings as djstripe_settings
+from djstripe.models import Customer
 
 from orders.models import InitialCheckIn, Order
 
 from .forms import RegisterForm
+
+stripe.api_key = djstripe_settings.djstripe_settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 
@@ -149,6 +155,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         context = super().get_context_data(**kwargs)
         context['today'] = datetime.today()
+        context['subscription'] = Customer(
+            id=self.request.user.stripe_customer_id).has_any_active_subscription()
 
         if goal_weight:
             context['labels'] = goal_weight['labels']
@@ -170,3 +178,13 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             context['calories'] = program['calories']
 
         return context
+
+
+@login_required
+def create_customer_portal(request):
+
+    session = stripe.billing_portal.Session.create(
+        customer=request.user.stripe_customer_id,
+        return_url=request.META['HTTP_REFERER'],
+    )
+    return redirect(session.url)
