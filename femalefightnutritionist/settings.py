@@ -81,6 +81,8 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
 
+    'nested_admin',
+
     'base',
     'users',
     'products',
