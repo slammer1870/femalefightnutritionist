@@ -27,18 +27,22 @@ class CheckInForm(ModelForm):
 
     def clean_date(self):
         date = self.cleaned_data['date']
-        if date < datetime.date.today():
+        if date < datetime.today():
             raise forms.ValidationError("The date cannot be in the past!")
         return date
 
 
 class InitialCheckInForm(ModelForm):
-    class Meta:
-        model = InitialCheckIn
-        exclude = ['order', ]
+
+    comp_date = forms.DateField(
+        widget=forms.widgets.DateInput(attrs={'type': 'date'}))
 
     def clean_date(self):
-        date = self.cleaned_data['date']
+        date = self.cleaned_data['comp_date']
         if date < datetime.date.today():
             raise forms.ValidationError("The date cannot be in the past!")
         return date
+
+    class Meta:
+        model = InitialCheckIn
+        exclude = ['order', ]
