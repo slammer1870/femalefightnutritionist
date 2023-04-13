@@ -1,0 +1,98 @@
+<div class="mb-4 flex items-center justify-between">
+  {% if yesterday %}<button
+    hx-get="{% url 'orders:program-date' pk yesterday %}"
+    class="h-min"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="9.707"
+      height="18.037"
+      viewBox="0 0 9.707 18.037"
+    >
+      <line
+        id="Line_15"
+        data-name="Line 15"
+        x1="9"
+        y2="9"
+        transform="translate(0.354 0.354)"
+        fill="none"
+        stroke="#000"
+        stroke-width="1"
+      />
+      <line
+        id="Line_16"
+        data-name="Line 16"
+        x1="9"
+        y1="9"
+        transform="translate(0.354 8.684)"
+        fill="none"
+        stroke="#000"
+        stroke-width="1"
+      />
+    </svg></button
+  >{% else %}<button class="h-6"></button>{% endif %}
+  <span class="font-light">{{today|date:"D, d F, Y"}}</span>
+  <button hx-get="{% url 'orders:program-date' pk tomorrow %}" class="h-min">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="9.707"
+      height="18.037"
+      viewBox="0 0 9.707 18.037"
+    >
+      <line
+        id="Line_17"
+        data-name="Line 17"
+        x1="9"
+        y2="9"
+        transform="translate(9.354 0.354) rotate(90)"
+        fill="none"
+        stroke="#000"
+        stroke-width="1"
+      />
+      <line
+        id="Line_18"
+        data-name="Line 18"
+        x1="9"
+        y1="9"
+        transform="translate(9.354 8.684) rotate(90)"
+        fill="none"
+        stroke="#000"
+        stroke-width="1"
+      />
+    </svg>
+  </button>
+</div>
+<div id="meals">
+  {% if program.protein %}
+  <div class="p-4 lg:px-0">
+    <div class="flex flex-col bg-gray-100 p-4">
+      <div class="mb-2 flex justify-between">
+        <div class="flex flex-col items-start">
+          <span class="font-semibold">Protein</span>
+          <p class="text-sm">{{program.protein}} grams</p>
+        </div>
+        <div class="flex flex-col items-start">
+          <span class="font-semibold">Carbs</span>
+          <p class="text-sm">{{program.carbohydrate}} grams</p>
+        </div>
+        <div class="flex flex-col items-start">
+          <span class="font-semibold">Fat</span>
+          <p class="text-sm">{{program.fat}} grams</p>
+        </div>
+      </div>
+      <div>
+        <div class="mb-2 flex items-center">
+          <span class="mr-4 font-semibold">Hydration</span>
+          <p class="text-sm">{{program.hydration}} litres</p>
+        </div>
+        <div class="flex items-center">
+          <span class="mr-4 font-semibold">Supplements</span>
+          <p class="text-sm">{{program.suplements}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p>It looks like you do not have any meals programmed for today!</p>
+  {% endif %}
+</div>

@@ -1,0 +1,74 @@
+{% extends 'orders/order_layout.html' %}{% block body %}
+<div>
+    <h1 class="text-4xl text-center mb-4">Check In Schedule</h1>
+    <div class="flex flex-wrap -m-4">
+      {% if object_list %}
+        {% for checkin in object_list %}
+        <a href={% url 'orders:checkin-form' pk=pk id=checkin.id %} class="xl:w-1/3 md:w-1/2 w-full py-2">
+          <div
+            class="
+              border border-gray-200
+              p-6
+              rounded-lg
+              flex
+              items-center
+              justify-between
+            "
+          >
+            <div>
+              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">
+                Check In {{forloop.counter}}
+              </h2>
+              <p class="leading-relaxed text-base">Check in at {{checkin.date}}</p>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="67"
+              height="31"
+              viewBox="0 0 67 31"
+              class="rounded-md"
+            >
+              <rect
+                id="Rectangle_36"
+                data-name="Rectangle 36"
+                width="67"
+                height="31"
+                fill="#c4c4c4"
+              />
+              <g
+                id="Polygon_1"
+                data-name="Polygon 1"
+                transform="translate(54.5 7.5) rotate(90)"
+                fill="#fff"
+              >
+                <path
+                  d="M 14.96349906921387 10 L 2.036501407623291 10 L 8.5 1.635472297668457 L 14.96349906921387 10 Z"
+                  stroke="none"
+                />
+                <path
+                  d="M 8.5 3.270931720733643 L 4.072992324829102 9 L 12.9270076751709 9 L 8.5 3.270931720733643 M 8.5 0 L 17 11 L 0 11 L 8.5 0 Z"
+                  stroke="none"
+                  fill="#fff"
+                />
+              </g>
+              <line
+                id="Line_14"
+                data-name="Line 14"
+                x2="31"
+                transform="translate(12.5 16.5)"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+        </a>
+        {% endfor %}
+        {% else %}
+          <div class="p-4">
+            <p>It looks like you have not been assigned any check ins yet, your schedule should appear here shortly!</p>
+          </div>
+        {% endif %}
+    </div>
+  </div>
+{% endblock body %}

@@ -1,32 +1,32 @@
 {% extends "base.html" %} {% block content %}{% load tailwind_filters %}
 <div x-data="{ 'showModal': false }" @keydown.escape="showModal = false">
-  <header class="flex flex-col justify-start overflow-none lg:overflow-hidden">
+  <header class="overflow-none flex flex-col justify-start lg:overflow-hidden">
     {% load static %}
     <div
-      class="relative z-20 px-4 text-2xl text-white bg-gray-500 bg-opacity-50 w-full h-96 lg:h-screen"
+      class="relative z-20 h-96 w-full bg-gray-500 bg-opacity-50 px-4 text-2xl text-white lg:h-screen"
     >
-      <div class="mt-24 lg:mt-40 z-20 container mx-auto relative h-full">
+      <div class="container relative z-20 mx-auto mt-24 h-full lg:mt-40">
         <div>
           <div class="flex lg:mb-4">
             <h1 class="text-4xl uppercase lg:text-6xl">Female</h1>
-            <h2 class="text-4xl font-light uppercase lg:text-6xl ml-4">
+            <h2 class="ml-4 text-4xl font-light uppercase lg:text-6xl">
               Fight
             </h2>
           </div>
-          <h3 class="text-4xl font-thin uppercase lg:text-6xl lg:mb-24">
+          <h3 class="text-4xl font-thin uppercase lg:mb-24 lg:text-6xl">
             Nutritionist
           </h3>
         </div>
-        <div class="w-96 mx-auto my-12 hidden lg:block">
+        <div class="mx-auto my-12 hidden w-96 lg:block">
           <button
-            class="bg-opactiy-60 lg:text-lg lg:w-96 w-full max-w-screen-sm p-2 mx-auto mb-5 font-light text-white bg-red-300 rounded-lg"
+            class="bg-opactiy-60 mx-auto mb-5 w-full max-w-screen-sm rounded-lg bg-red-300 p-2 font-light text-white lg:w-96 lg:text-lg"
             @click="showModal = true"
           >
             BOOK A FREE CONSULTATION TODAY
           </button>
         </div>
         <h5
-          class="text-lg uppercase mb-5 bottom-20 lg:bottom-40 right-0 absolute"
+          class="absolute bottom-20 right-0 mb-5 text-lg uppercase lg:bottom-40"
         >
           Creating output optimised by input
         </h5>
@@ -37,43 +37,43 @@
       loop
       muted
       playsinline
-      class="absolute z-10 w-screen min-w-full max-w-screen h-96 lg:h-screen md:w-screen overflow-hidden object-cover"
+      class="max-w-screen absolute z-10 h-96 w-screen min-w-full overflow-hidden object-cover md:w-screen lg:h-screen"
     >
       <source src="/static/bgvideo.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
     <div
-      class="relative container mx-auto text-gray-900 p-4 py-6 md:mx-20 lg:hidden"
+      class="container relative mx-auto p-4 py-6 text-gray-900 md:mx-20 lg:hidden"
     >
-      <h5 class="text-2xl mb-5">
+      <h5 class="mb-5 text-2xl">
         We believe Women perform best through tailored nutritional coaching
       </h5>
-      <h6 class="font-thin text-lg mb-5">
+      <h6 class="mb-5 text-lg font-thin">
         Schedule a free 15 minute call to see how we can help you
       </h6>
       <button
-        class="bg-opactiy-60 lg:text-lg lg:w-96 w-full max-w-screen-sm p-2 mx-auto font-light text-white bg-red-300 rounded-lg"
+        class="bg-opactiy-60 mx-auto w-full max-w-screen-sm rounded-lg bg-red-300 p-2 font-light text-white lg:w-96 lg:text-lg"
         @click="showModal = true"
       >
         BOOK A FREE CONSULTATION TODAY
       </button>
     </div>
   </header>
-  <div class="container mx-auto px-4 py-6 xl:py-16 text-gray-900" id="features">
-    <h3 class="lg:text-4xl mb-4 text-3xl">Building better female athletes</h3>
-    <h5 class="lg:text-2xl mb-10 text-xl font-light xl:mb-24">
+  <div class="container mx-auto px-4 py-6 text-gray-900 xl:py-16" id="features">
+    <h3 class="mb-4 text-3xl lg:text-4xl">Building better female athletes</h3>
+    <h5 class="mb-10 text-xl font-light lg:text-2xl xl:mb-24">
       Our goal is to provide you with the best nutrition for the best
       performance through very simple process:
     </h5>
-    <div class="xl:grid-cols-3 grid grid-cols-1 gap-3 xl:gap-0">
+    <div class="grid grid-cols-1 gap-3 xl:grid-cols-3 xl:gap-0">
       <div
-        class="grid-row-2 xl:grid-flow-row grid grid-cols-2 col-span-1 gap-3"
+        class="grid-row-2 col-span-1 grid grid-cols-2 gap-3 xl:grid-flow-row"
       >
-        <div class="xl:order-last col-span-1 row-span-2">
+        <div class="col-span-1 row-span-2 xl:order-last">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 158.489 107.169"
-            class="w-36 h-36 md:w-52 md:h-52 lg:w-80 lg:h-80 xl:w-48 xl:h-48"
+            class="h-36 w-36 md:h-52 md:w-52 lg:h-80 lg:w-80 xl:h-48 xl:w-48"
           >
             <g id="undraw_diet_ghvw" transform="translate(0)">
               <ellipse
@@ -315,28 +315,28 @@
           </svg>
         </div>
         <div
-          class="xl:col-span-3 xl:order-first xl:justify-center xl:h-8 xl:border-b xl:mb-4 flex items-end col-span-1 row-span-1"
+          class="col-span-1 row-span-1 flex items-end xl:order-first xl:col-span-3 xl:mb-4 xl:h-8 xl:justify-center xl:border-b"
         >
-          <h5 class="lg:text-3xl lg:mb-4 md:text-2xl text-xl font-light">
+          <h5 class="text-xl font-light md:text-2xl lg:mb-4 lg:text-3xl">
             Journal
           </h5>
         </div>
-        <div class="xl:row-span-2 col-span-1 row-span-1">
-          <p class="md:text-base lg:text-xl xl:px-4 xl:pt-6 text-sm font-thin">
+        <div class="col-span-1 row-span-1 xl:row-span-2">
+          <p class="text-sm font-thin md:text-base lg:text-xl xl:px-4 xl:pt-6">
             We create a simple food journal to gauge your current nutritional
             preferences and habits.
           </p>
         </div>
       </div>
       <div
-        class="grid-row-2 xl:grid-flow-row grid grid-flow-col grid-cols-2 col-span-1 gap-3"
+        class="grid-row-2 col-span-1 grid grid-flow-col grid-cols-2 gap-3 xl:grid-flow-row"
       >
-        <div class="xl:order-last order-3 col-span-1 row-span-2">
+        <div class="order-3 col-span-1 row-span-2 xl:order-last">
           <svg
             id="undraw_shopping_app_flsj"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 140.145 116.953"
-            class="w-36 h-36 md:w-52 md:h-52 lg:w-80 lg:h-80 xl:w-48 xl:h-48"
+            class="h-36 w-36 md:h-52 md:w-52 lg:h-80 lg:w-80 xl:h-48 xl:w-48"
           >
             <path
               id="Path_61"
@@ -856,15 +856,15 @@
           </svg>
         </div>
         <div
-          class="xl:col-span-3 xl:order-first xl:justify-center xl:border-b xl:mb-4 xl:h-8 flex items-end order-1 col-span-1 row-span-1"
+          class="order-1 col-span-1 row-span-1 flex items-end xl:order-first xl:col-span-3 xl:mb-4 xl:h-8 xl:justify-center xl:border-b"
         >
-          <h5 class="lg:text-3xl lg:mb-4 md:text-2xl text-xl font-light">
+          <h5 class="text-xl font-light md:text-2xl lg:mb-4 lg:text-3xl">
             Program
           </h5>
         </div>
-        <div class="xl:row-span-2 order-2 col-span-1 row-span-1">
+        <div class="order-2 col-span-1 row-span-1 xl:row-span-2">
           <p
-            class="md:text-base lg:text-xl xl:pt-6 xl:px-4 col-span-1 row-span-1 text-sm font-thin"
+            class="col-span-1 row-span-1 text-sm font-thin md:text-base lg:text-xl xl:px-4 xl:pt-6"
           >
             We construct a program that is uniquely tailored to your performance
             goals and timeline.
@@ -872,13 +872,13 @@
         </div>
       </div>
       <div
-        class="grid-row-2 xl:grid-flow-row grid grid-cols-2 col-span-1 gap-3"
+        class="grid-row-2 col-span-1 grid grid-cols-2 gap-3 xl:grid-flow-row"
       >
-        <div class="xl:order-last col-span-1 row-span-2">
+        <div class="col-span-1 row-span-2 xl:order-last">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 154.016 102.478"
-            class="w-36 h-36 md:w-52 md:h-52 lg:w-80 lg:h-80 xl:w-48 xl:h-48"
+            class="h-36 w-36 md:h-52 md:w-52 lg:h-80 lg:w-80 xl:h-48 xl:w-48"
           >
             <g
               id="undraw_finish_line_katerina_limpitsouni_xy20"
@@ -1246,14 +1246,14 @@
           </svg>
         </div>
         <div
-          class="xl:col-span-3 xl:order-first xl:justify-center xl:border-b xl:mb-4 xl:h-8 flex items-end col-span-1 row-span-1"
+          class="col-span-1 row-span-1 flex items-end xl:order-first xl:col-span-3 xl:mb-4 xl:h-8 xl:justify-center xl:border-b"
         >
-          <h5 class="lg:text-3xl lg:mb-4 md:text-2xl text-xl font-light">
+          <h5 class="text-xl font-light md:text-2xl lg:mb-4 lg:text-3xl">
             Perform!
           </h5>
         </div>
-        <div class="xl:row-span-2 col-span-1 row-span-1">
-          <p class="md:text-base lg:text-xl xl:px-4 xl:pt-6 text-sm font-thin">
+        <div class="col-span-1 row-span-1 xl:row-span-2">
+          <p class="text-sm font-thin md:text-base lg:text-xl xl:px-4 xl:pt-6">
             We monitor your progress and make adaptations to your nutritional
             programming as needed for optimal performance.
           </p>
@@ -1261,28 +1261,28 @@
       </div>
     </div>
   </div>
-  <div class="xl:py-12 py-6">
+  <div class="py-6 xl:py-12">
     <div
-      class="lg:flex lg:flex-row-reverse lg:items-center lg:bg-gray-400 lg:mb-16 xl:mb-20 container mx-auto"
+      class="container mx-auto lg:mb-16 lg:flex lg:flex-row-reverse lg:items-center lg:bg-gray-400 xl:mb-20"
     >
-      <div class="md:mx-20 lg:mx-0 lg:w-7/12 lg:p-20 lg:text-white p-4">
-        <h3 class="lg:text-4xl mb-4 text-3xl">
+      <div class="p-4 md:mx-20 lg:mx-0 lg:w-7/12 lg:p-20 lg:text-white">
+        <h3 class="mb-4 text-3xl lg:text-4xl">
           Expert Programming by Experienced Nutritionists
         </h3>
-        <h5 class="lg:text-2xl mb-4 text-xl font-light">
+        <h5 class="mb-4 text-xl font-light lg:text-2xl">
           Our lead nutritionist is Lindsey Doyle who has spent that past 5 years
           coaching high performing athletes.
         </h5>
-        <h5 class="lg:text-2xl mb-4 text-xl font-light hidden lg:block">
+        <h5 class="mb-4 hidden text-xl font-light lg:block lg:text-2xl">
           &quot;I specialise in helping women make weight and perform in a safe,
           efficient and effective manner!&quot; - Lindsey
         </h5>
       </div>
-      <div class="lg:w-5/12 relative flex items-center justify-center">
+      <div class="relative flex items-center justify-center lg:w-5/12">
         <div
-          class="bg-opacity-70 absolute z-10 flex flex-col items-center justify-center w-full h-full p-4 bg-red-300"
+          class="absolute z-10 flex h-full w-full flex-col items-center justify-center bg-red-300 bg-opacity-70 p-4"
         >
-          <div class="md:mx-20 text-white">
+          <div class="text-white md:mx-20">
             <h3 class="mb-4 text-5xl">Lindsey Doyle</h3>
             <hr class="mb-4" />
 
@@ -1295,22 +1295,22 @@
         <img
           src="/static/img/lindsey-nobg.png"
           alt="Lindsey"
-          class="w-auto h-1/2 mx-auto"
+          class="mx-auto h-1/2 w-auto"
         />
       </div>
-      <div class="md:mx-20 lg:hidden p-4">
-        <h5 class="lg:text-2xl mb-4 text-xl font-light">
+      <div class="p-4 md:mx-20 lg:hidden">
+        <h5 class="mb-4 text-xl font-light lg:text-2xl">
           &quot;I specialise in helping women make weight and perform in a safe,
           efficient and effective manner!&quot; - Lindsey
         </h5>
       </div>
     </div>
   </div>
-  <div class="container mx-auto p-4 mb-12 text-gray-600">
-    <h1 class="lg:hidden mb-8 text-3xl text-gray-900">Client Testimonials</h1>
+  <div class="container mx-auto mb-12 p-4 text-gray-600">
+    <h1 class="mb-8 text-3xl text-gray-900 lg:hidden">Client Testimonials</h1>
     <div class="flex flex-wrap items-start justify-between">
       <div
-        class="lg:w-1/3 flex items-center lg:items-start justify-around w-full mb-12"
+        class="mb-12 flex w-full items-center justify-around lg:w-1/3 lg:items-start"
       >
         <div class="w-28 lg:w-36">
           <image
@@ -1320,23 +1320,23 @@
           />
         </div>
         <div class="w-2/3 pl-4">
-          <p class="lg:text-xl mb-2">
+          <p class="mb-2 lg:text-xl">
             Lindsey helped me to achieve the best shape of my UFC career, making
             weight effectively but more importantly making me feel like I could
             perform well at that weight. I could not recommend Lindsey highly
             enough to any female athlete who is looking to achieve optimum
             performance.
           </p>
-          <h3 class="lg:text-2xl mb-2 text-xl font-medium text-gray-900">
+          <h3 class="mb-2 text-xl font-medium text-gray-900 lg:text-2xl">
             Aisling Daly
           </h3>
-          <h5 class="lg:text-xl text-lg font-light text-gray-900">
+          <h5 class="text-lg font-light text-gray-900 lg:text-xl">
             UCF Fighter
           </h5>
         </div>
       </div>
       <div
-        class="lg:w-1/3 flex items-center lg:items-start justify-around w-full mb-12"
+        class="mb-12 flex w-full items-center justify-around lg:w-1/3 lg:items-start"
       >
         <div class="w-28 lg:w-36">
           <img
@@ -1346,22 +1346,22 @@
           />
         </div>
         <div class="w-2/3 pl-4">
-          <p class="lg:text-xl mb-2">
+          <p class="mb-2 lg:text-xl">
             “I worked with Lindsey across three of my MMA fights as they were
             all in close proximity and I wanted to maintain my weight for them
             all. The accuracy, the professionalism, the eagerness to help me and
             answer any questions were second to none.
           </p>
-          <h3 class="lg:text-2xl mb-2 text-xl font-medium text-gray-900">
+          <h3 class="mb-2 text-xl font-medium text-gray-900 lg:text-2xl">
             Rosa Walsh
           </h3>
-          <h5 class="lg:text-xl text-lg font-light text-gray-900">
+          <h5 class="text-lg font-light text-gray-900 lg:text-xl">
             MMA Fighter and BJJ Competitor
           </h5>
         </div>
       </div>
       <div
-        class="lg:w-1/3 flex items-center lg:items-start justify-around w-full mb-12"
+        class="mb-12 flex w-full items-center justify-around lg:w-1/3 lg:items-start"
       >
         <div class="w-28 lg:w-36">
           <img
@@ -1372,17 +1372,17 @@
           />
         </div>
         <div class="w-2/3 pl-4">
-          <p class="lg:text-xl mb-2">
+          <p class="mb-2 lg:text-xl">
             I’ve started working with Lindsey in 2015 to help manage my
             nutrition and weight for BJJ competition. After my last pregnancy, I
             managed to start competing at a lower weight class all whilst
             retaining the same strength and muscle mass. I like working with
             Lindsey as she is truly passionate about good nutrition.
           </p>
-          <h3 class="lg:text-2xl mb-2 text-xl font-medium text-gray-900">
+          <h3 class="mb-2 text-xl font-medium text-gray-900 lg:text-2xl">
             Úna Quinn
           </h3>
-          <h5 class="lg:text-xl text-lg font-light text-gray-900">
+          <h5 class="text-lg font-light text-gray-900 lg:text-xl">
             BJJ Brown Belt
           </h5>
         </div>
@@ -1396,7 +1396,7 @@
   >
     <!-- Modal inner -->
     <div
-      class="max-w-screen-sm w-full px-6 py-4 mx-auto text-left bg-white rounded shadow-lg"
+      class="mx-auto w-full max-w-screen-sm rounded bg-white px-6 py-4 text-left shadow-lg"
       @click.away="showModal = false"
       x-transition:enter="motion-safe:ease-out duration-300"
       x-transition:enter-start="opacity-0 scale-90"
@@ -1404,18 +1404,18 @@
     >
       <!-- Title / Close-->
       <div class="flex items-center justify-between">
-        <h5 class="mr-3 text-2xl mb-4 text-black max-w-none">
+        <h5 class="mr-3 mb-4 max-w-none text-2xl text-black">
           Fill in your details below and one of our team will be in touch
         </h5>
       </div>
 
       <!-- content -->
-      <form method="POST" action="" class="flex flex-col mx-auto">
+      <form method="POST" action="" class="mx-auto flex flex-col">
         {% csrf_token %} {{form|crispy}}
         <div class="flex pt-4">
           <button
             type="submit"
-            class="bg-gray-800 text-white rounded font-medium px-4 py-2 ml-auto"
+            class="ml-auto rounded bg-gray-800 px-4 py-2 font-medium text-white"
             value="Submit"
           >
             Submit
