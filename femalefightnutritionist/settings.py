@@ -32,7 +32,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False),
-    LOCAL=(bool, False)
+    LOCAL=(bool, False),
+    STRIPE_LIVE_MODE=(bool, True)
 )
 # reading .env file
 READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE', default=False)
@@ -54,17 +55,13 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': env('CLOUDINARY_API_KEY'),
-    'API_SECRET': env('CLOUDINARY_API_SECRET'),
-}
-STRIPE_LIVE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
-STRIPE_TEST_SECRET_KEY = env("STRIPE_TEST_SECRET_KEY")
-STRIPE_LIVE_MODE = False  # Change to True in production
 # Get it from the section in the Stripe dashboard where you added the webhook endpoint
-DJSTRIPE_WEBHOOK_SECRET = "whsec_51895ee154034606eae27ca21b3330fd6927bf1635f9019bf8f050bf92b129c1"
+STRIPE_LIVE_SECRET_KEY = env("STRIPE_LIVE_SECRET_KEY")
+STRIPE_TEST_SECRET_KEY = env("STRIPE_TEST_SECRET_KEY")
+DJSTRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
+STRIPE_LIVE_MODE = env("STRIPE_LIVE_MODE")
+
 
 # Application definition
 
@@ -84,8 +81,6 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
 
-    'cloudinary',
-    'cloudinary_storage',
     "djstripe",
 
     'base',
@@ -187,9 +182,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
