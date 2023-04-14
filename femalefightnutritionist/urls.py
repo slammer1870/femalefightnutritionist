@@ -40,5 +40,6 @@ urlpatterns = [
     path('products/', include('products.urls', namespace='products')),
     path('orders/', include('orders.urls', namespace='orders')),
     path("stripe/", include("djstripe.urls", namespace="djstripe")),
+    path("blog/", include("blog.urls", namespace="blog")),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

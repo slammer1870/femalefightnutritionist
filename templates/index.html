@@ -1306,7 +1306,7 @@
       </div>
     </div>
   </div>
-  <div class="container mx-auto mb-12 p-4 text-gray-600">
+  <div class="container mx-auto p-4 text-gray-600">
     <h1 class="mb-8 text-3xl text-gray-900 lg:hidden">Client Testimonials</h1>
     <div class="flex flex-wrap items-start justify-between">
       <div
@@ -1387,6 +1387,30 @@
           </h5>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="container relative mx-auto mb-12 p-4 text-gray-900">
+    <h5 class="mb-8 text-3xl font-medium">Latest Blog Posts</h5>
+    <div class="mb-8 grid gap-8 border-t border-b py-8 md:grid-cols-3 md:py-12">
+      {% for post in blog_posts %}
+      <a
+        href="{% url 'blog:blog-detail' post.slug %}"
+        class="relative col-span-1 h-full cursor-pointer"
+      >
+        <h6 class="mb-1 text-2xl font-semibold">{{post.title}}</h6>
+        <p class="mb-12">{{post.description}}</p>
+        <span class="absolute bottom-0 left-0"
+          >{{post.updated_at|date:"D, d F, Y"}}</span
+        >
+      </a>
+      {% endfor %}
+    </div>
+    <div class="flex w-full md:text-xl">
+      <a
+        href="{% url 'blog:blog-list' %}"
+        class="ml-auto cursor-pointer font-semibold underline underline-offset-8"
+        >View all blog posts &#8594;</a
+      >
     </div>
   </div>
   <!-- Modal -->
