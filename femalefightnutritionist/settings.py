@@ -84,10 +84,14 @@ INSTALLED_APPS = [
 
     'nested_admin',
 
+    'django_quill',
+    'django_editorjs',
+
     'base',
     'users',
     'products',
-    'orders'
+    'orders',
+    'blog'
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'

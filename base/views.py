@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.views import generic
 
+from blog.models import QuillPost
+
 from .forms import LeadForm
 
 
@@ -9,6 +11,12 @@ class IndexPageView(generic.FormView):
     template_name = "index.html"
     form_class = LeadForm
     success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blog_posts'] = QuillPost.objects.all()[:3]
+
+        return context
 
     def form_valid(self, form):
         form.save()
@@ -19,4 +27,3 @@ class IndexPageView(generic.FormView):
     def form_invalid(self, form):
         messages.error(self.request, "It seems you have registered already")
         return super().form_invalid(form)
-        
