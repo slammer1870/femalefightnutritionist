@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.views import generic
 
-from blog.models import QuillPost
+from blog.models import Post
 
 from .forms import LeadForm
 
@@ -14,7 +14,7 @@ class IndexPageView(generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['blog_posts'] = QuillPost.objects.all()[:3]
+        context['blog_posts'] = Post.objects.all()[:3]
 
         return context
 

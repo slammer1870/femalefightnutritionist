@@ -85,7 +85,6 @@ INSTALLED_APPS = [
     'nested_admin',
 
     'django_quill',
-    'django_editorjs',
 
     'base',
     'users',

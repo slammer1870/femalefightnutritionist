@@ -1,11 +1,8 @@
 from django.contrib import admin
 
-from .models import Post, QuillPost
+from .models import Post
 
 
-@admin.register(QuillPost)
+@admin.register(Post)
 class QuillPostAdmin(admin.ModelAdmin):
     pass
-
-
-admin.site.register(Post)
