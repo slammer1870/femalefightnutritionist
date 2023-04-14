@@ -5,7 +5,7 @@
   <div
       id="tabs"
       hx-get="{% url 'orders:program-date' pk today %}"
-      hx-trigger="load delay:100ms"
+      hx-trigger="load"
       hx-target="#tabs"
       hx-swap="innerHTML"
     ></div>
