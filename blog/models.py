@@ -12,7 +12,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.title[:50])
         super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
