@@ -48,7 +48,7 @@ LOCAL = env('LOCAL')
 SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = ['femalefightnutritionist.herokuapp.com', '127.0.0.1',
-                 'femalefightnutritionist.com', 'www.femalefightnutritionist.com']
+                 'femalefightnutritionist.com', 'www.femalefightnutritionist.com' , '*']
 
 INTERNAL_IPS = [
     "127.0.0.1",
