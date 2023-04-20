@@ -139,4 +139,4 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-## **/dist/styles.css
+**/dist/styles.css
