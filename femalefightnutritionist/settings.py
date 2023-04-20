@@ -26,8 +26,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'bg-red-400',
 }
 
-NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
