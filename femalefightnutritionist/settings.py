@@ -44,8 +44,6 @@ if READ_DOT_ENV_FILE:
 DEBUG = env('DEBUG')
 LOCAL = env('LOCAL')
 
-NPM_BIN_PATH = "/usr/local/bin/npm"
-
 # Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
