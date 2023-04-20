@@ -67,8 +67,6 @@ STRIPE_LIVE_MODE = env("STRIPE_LIVE_MODE")
 # Application definition
 
 INSTALLED_APPS = [
-    "theme.apps.ThemeConfig",
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,6 +75,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'tailwind',
+    'theme',
     'django_browser_reload',
 
     "crispy_forms",
@@ -129,6 +128,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'femalefightnutritionist.wsgi.application'
 
+TAILWIND_APP_NAME = 'theme'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -194,8 +194,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-TAILWIND_APP_NAME = 'theme'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
