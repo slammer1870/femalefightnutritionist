@@ -1,5 +1,5 @@
 from django.contrib import admin
-from nested_admin import NestedModelAdmin, NestedStackedInline
+from nested_admin import NestedModelAdmin, NestedStackedInline  # type: ignore
 
 from orders.models import CheckIn, InitialCheckIn, Journal, Order, Program
 
@@ -42,7 +42,7 @@ class OrderNestedInline(NestedStackedInline):
     model = Order
     fields = ['product', 'stripe_purchase_id',]
     readonly_fields = ['purchase_date']
-    ordering = ['purchase_date']
+    ordering = ['-purchase_date']
     extra = 0
     inlines = [InitialCheckInNestedInline, JournalNestedInline,
                CheckInNestedInline, ProgramNestedInline]
@@ -59,7 +59,8 @@ class CustomUserAdmin(NestedModelAdmin):
     ordering = ('email',)
     exclude = ('is_staff', 'is_superuser', 'is_active',
                'groups', 'user_permissions', 'password')
-    readonly_fields = ('email', 'stripe_customer_id', 'date_joined', 'last_login')
+    readonly_fields = ('email', 'stripe_customer_id',
+                       'date_joined', 'last_login')
 
     inlines = [OrderNestedInline]
 
