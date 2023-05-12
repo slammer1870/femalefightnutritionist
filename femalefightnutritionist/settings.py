@@ -36,7 +36,8 @@ env = environ.Env(
     STRIPE_LIVE_MODE=(bool, True)
 )
 # reading .env file
-READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE', default=False)
+READ_DOT_ENV_FILE = env.bool(
+    'READ_DOT_ENV_FILE', default=False)  # type: ignore
 if READ_DOT_ENV_FILE:
     environ.Env.read_env()
 

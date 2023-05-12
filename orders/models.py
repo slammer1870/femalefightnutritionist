@@ -1,5 +1,8 @@
 from django.conf import settings
+from django.core.mail import send_mail
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
 from djstripe.models import Product
 
@@ -15,7 +18,7 @@ class Order(models.Model):
     purchase_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-purchase_date']  # Sort in desc order
+        ordering = ('-purchase_date',)  # Sort in desc order
 
     def __str__(self):
         return "User: {0}, Order: {1}".format(self.user.first_name, str(self.id))
@@ -99,7 +102,7 @@ class CheckIn(models.Model):
     consume_reasons = models.CharField(verbose_name='Over/Under Consumption: What was the main reason for this?',
                                        max_length=400, choices=CONSUME_REASONS, blank=True)
     period_date = models.DateField(
-        verbose_name='When is your next period due?', blank=True, default=timezone.now())
+        verbose_name='When is your next period due?', blank=True, default=timezone.now)
     digestive_issues = models.CharField(verbose_name='Have you had any digestive issues this week?i.e. gas, bloating, diarrhoea, etc.',
                                         max_length=400, choices=DIGESTIVE_CHOICES, blank=True)
     digestive_describe = models.CharField(
@@ -109,6 +112,41 @@ class CheckIn(models.Model):
 
     def __str__(self):
         return "Check In - {0}".format(str(self.date))
+
+    class Meta:
+        ordering = ('date',)
+
+
+@receiver(post_save, sender=CheckIn)
+def send_checkin_email(sender, instance, created, **kwargs):
+    if not created:
+        subject = f'New Check-In Form submitted on {instance.date} by {instance.order.user}.'
+        message = f'New Check-In Form submitted on {instance.date} by {instance.order.user}. Details:\n\n'
+        message += f'Order: {instance.order}\n\n'
+        message += f'Medication: {instance.medication}\n\n'
+        message += f'Contraceptive: {instance.contraceptive}\n\n'
+        message += f'Goal Weight: {instance.goal_weight}\n\n'
+        message += f'Current Weight: {instance.current_weight}\n\n'
+        message += f'Height: {instance.height}\n\n'
+        message += f'Neck: {instance.neck}\n\n'
+        message += f'Waist: {instance.waist}\n\n'
+        message += f'Hip: {instance.hip}\n\n'
+        message += f'Left Bicep: {instance.left_bicep}\n\n'
+        message += f'Left Quad: {instance.left_quad}\n\n'
+        message += f'Energy: {instance.energy}\n\n'
+        message += f'Stress: {instance.stress}\n\n'
+        message += f'Sleep: {instance.sleep}\n\n'
+        message += f'Hunger: {instance.hunger}\n\n'
+        message += f'Percentage: {instance.percentage}\n\n'
+        message += f'Consume: {instance.consume}\n\n'
+        message += f'Consume Reasons: {instance.consume_reasons}\n\n'
+        message += f'Period Date: {instance.period_date}\n\n'
+        message += f'Digestive Issues: {instance.digestive_issues}\n\n'
+        message += f'Digestive Describe: {instance.digestive_describe}\n\n'
+        message += f'Bowel Frequency: {instance.bowel_frequency}\n\n'
+        # Replace with desired recipient email address
+        recipient_list = [settings.DEFAULT_FROM_EMAIL]
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
 
 
 class Program(models.Model):
