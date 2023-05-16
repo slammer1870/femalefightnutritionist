@@ -224,3 +224,6 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     X_FRAME_OPTIONS = "DENY"
+
+    ALLOWED_HOSTS = ['femalefightnutritionist.herokuapp.com', '127.0.0.1',
+                     'femalefightnutritionist.com', 'www.femalefightnutritionist.com']
