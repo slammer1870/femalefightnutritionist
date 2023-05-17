@@ -54,35 +54,36 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
                 start_date = initial_checkin.start_date
                 comp_date = initial_checkin.comp_date
+                checkin_date = initial_checkin.checkin_time
 
                 starting_weight = float(initial_checkin.starting_weight)
                 goal_weight = float(initial_checkin.goal_weight)
 
-                date = start_date
+                date = comp_date
 
-                weight = starting_weight
+                weight = goal_weight
 
                 data_set = []
 
                 labels = []
 
-                labels.append(start_date.strftime(
+                labels.append(comp_date.strftime(
                     "%y-%m-%d"))
 
-                data_set.append(starting_weight)
+                data_set.append(weight)
 
                 # calculate data as a percentage based loss of body weight
-                while (weight > goal_weight and date <= comp_date):
-                    date = date + timedelta(days=7)
-                    weight = weight - \
+                while (weight <= starting_weight or date <= checkin_date.date()):
+                    date = date - timedelta(days=7)
+                    weight = weight + \
                         (weight*float(0.01))
                     data_set.append(
                         weight)
                     labels.append(date.strftime("%y-%m-%d"))
 
                 context = {
-                    "labels": labels,
-                    "data_set": json.dumps(data_set),
+                    "labels": labels[::-1],
+                    "data_set": json.dumps(data_set[::-1]),
                     "starting_weight": starting_weight,
                     "goal_weight": goal_weight,
                     "start_date": start_date.strftime("%y-%m-%d"),
