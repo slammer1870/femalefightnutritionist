@@ -35,7 +35,7 @@ def send_lead_email(sender, instance, created, **kwargs):
             to_emails=instance.email,
             subject='FFN Enquiry',
             plain_text_content="Hi {},\n\nThank you for expressing interest in getting started with us. Have you ever receivec any nutritional coaching before?\n\nRegards,\n\nLindsey, Female Fight Nutritionist".format(first))
-        message.reply_to = {settings.DEFAULT_FROM_EMAIL}
+        message.reply_to = settings.DEFAULT_FROM_EMAIL
         message.send_at = SendAt(send_time)
 
         try:
