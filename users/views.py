@@ -73,7 +73,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 data_set.append(weight)
 
                 # calculate data as a percentage based loss of body weight
-                while (weight <= starting_weight or date <= checkin_date.date()):
+                while (weight <= starting_weight or date >= checkin_date.date()):
                     date = date - timedelta(days=7)
                     weight = weight + \
                         (weight*float(0.01))
