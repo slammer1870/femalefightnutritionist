@@ -23,12 +23,13 @@ from django.contrib.auth.views import (PasswordResetCompleteView,
                                        PasswordResetView)
 from django.urls import include, path
 
-from base.views import IndexPageView
+from base.views import IndexPageView, PricingView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path('', IndexPageView.as_view(), name="index"),
+    path('pricing/', PricingView.as_view(), name="products"),
     path('password-reset/', PasswordResetView.as_view(), name="password_reset"),
     path('password-reset-done/', PasswordResetDoneView.as_view(),
          name="password_reset_done"),
