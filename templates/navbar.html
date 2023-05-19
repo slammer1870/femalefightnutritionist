@@ -1,15 +1,15 @@
 <div x-data="{ showBg: false }">
   {% if request.path != "/" %}
-  <nav class="p-4 fixed w-full z-30 text-2xl bg-gray-200">
+  <nav class="fixed z-30 w-full bg-gray-200 p-4 text-2xl">
     {% else %}
     <nav
-      class="p-4 fixed w-full z-30 text-2xl"
+      class="fixed z-30 w-full p-4 text-2xl"
       :class="{ 'bg-gray-200 shadow transition duration-300' : showBg }"
       @scroll.window="showBg = (window.pageYOffset > 20) ? true : false"
     >
       {% endif %}
       <div
-        class="container mx-auto flex justify-between items-center"
+        class="container mx-auto flex items-center justify-between"
         x-data="{ sideBar: false }"
       >
         <a href={% url 'index' %}>
@@ -538,7 +538,7 @@
         </svg>
 
         <div
-          class="text-lg font-light text-white w-full flex items-center justify-end"
+          class="flex w-full items-center justify-end text-lg font-light text-white"
         >
           <!--Conditional rendering based on User status-->
           {% if user.is_authenticated %}<a href="{% url 'users:dashboard' %}">
@@ -546,12 +546,13 @@
           </a>
           <a
             href="{% url 'users:logout' %}"
-            class="px-4 py-1 text-center bg-yellow-400 rounded ml-4"
+            class="ml-4 rounded bg-yellow-400 px-4 py-1 text-center"
           >
             Logout </a
-          >{% else %}<a
+          >{% else %}<a href="{% url 'pricing' %}"> Pricing </a
+          ><a
             href="{% url 'users:dashboard' %}"
-            class="px-4 py-1 text-center bg-yellow-400 rounded ml-auto"
+            class="ml-4 rounded bg-yellow-400 px-4 py-1 text-center"
           >
             Members
           </a>

@@ -27,3 +27,7 @@ class IndexPageView(generic.FormView):
     def form_invalid(self, form):
         messages.error(self.request, "It seems you have registered already")
         return super().form_invalid(form)
+
+
+class PricingView(generic.TemplateView):
+    template_name = "pricing.html"
