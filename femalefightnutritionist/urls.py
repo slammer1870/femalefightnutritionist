@@ -29,7 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path('', IndexPageView.as_view(), name="index"),
-    path('pricing/', PricingView.as_view(), name="products"),
+    path('pricing/', PricingView.as_view(), name="pricing"),
     path('password-reset/', PasswordResetView.as_view(), name="password_reset"),
     path('password-reset-done/', PasswordResetDoneView.as_view(),
          name="password_reset_done"),
