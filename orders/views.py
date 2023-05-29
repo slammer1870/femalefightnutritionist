@@ -36,32 +36,36 @@ def create_new_order(event, **kwargs):
 
     # Check Event Type
 
-    # If event is a checkout session:
-    if (event.type == 'checkout.session.completed'):
-        line_items = stripe.checkout.Session.list_line_items(
-            stripe_event.data.object.id, limit=5)
+    if (user):
 
-        price = line_items.data[0].price.id
+        # If event is a checkout session:
+        if (event.type == 'checkout.session.completed'):
+            line_items = stripe.checkout.Session.list_line_items(
+                stripe_event.data.object.id, limit=5)
 
-        stripe_price = Price.objects.get(id=price)
+            price = line_items.data[0].price.id
 
-        product = stripe_price.product
+            stripe_price = Price.objects.get(id=price)
 
-        order = Order.objects.create(user=user, product=product,
-                                     stripe_purchase_id=stripe_event.data.object.payment_intent or stripe_event.data.object.subscription)
+            product = stripe_price.product
 
-        return
+            order = Order.objects.create(user=user, product=product,
+                                         stripe_purchase_id=stripe_event.data.object.payment_intent or stripe_event.data.object.subscription)
 
-    if (event.type == 'customer.subscription.updated'):
+            return
 
-        price = stripe_event.data.object.items.data[0].price.id
+        if (event.type == 'customer.subscription.updated'):
 
-        stripe_price = Price.objects.get(id=price)
+            price = stripe_event.data.object.items.data[0].price.id
 
-        product = stripe_price.product
+            stripe_price = Price.objects.get(id=price)
 
-        order, created = Order.objects.get_or_create(
-            user=user, product=product, stripe_purchase_id=stripe_event.data.object.id)
+            product = stripe_price.product
+
+            order, created = Order.objects.get_or_create(
+                user=user, product=product, stripe_purchase_id=stripe_event.data.object.id)
+
+            return
 
         return
 
