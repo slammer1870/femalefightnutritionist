@@ -24,19 +24,17 @@ stripe.api_key = djstripe_settings.djstripe_settings.STRIPE_SECRET_KEY
 @webhooks.handler('checkout.session.completed', 'customer.subscription.updated')
 def create_new_order(event, **kwargs):
 
-    print("webhook initiated", event)
-
     # Retireve Event
     stripe_event = stripe.Event.retrieve(event.id)
 
-    print("stripe event", stripe_event)
-
-    user = CustomUser.objects.get(
+    user_set = CustomUser.objects.filter(
         stripe_customer_id=stripe_event.data.object.customer)
 
     # Check Event Type
 
-    if (user):
+    if (user_set.exists()):
+
+        user = user_set.first()
 
         # If event is a checkout session:
         if (event.type == 'checkout.session.completed'):
