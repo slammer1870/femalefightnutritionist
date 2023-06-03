@@ -11,7 +11,7 @@ from mailchimp_marketing.api_client import ApiClientError
 
 from blog.models import Post
 
-from .forms import LeadForm, NewsletterForm
+from .forms import LeadForm
 
 
 class IndexPageView(generic.FormView):
@@ -45,8 +45,6 @@ class NewsletterView(View):
     def post(self, request):
 
         email = request.POST.get('email')
-
-        print(email)
 
         if not email:
             return HttpResponse('<p class="text-xs">Please enter a valid email address.<p>')
