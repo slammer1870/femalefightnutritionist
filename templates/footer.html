@@ -1,9 +1,9 @@
 <footer class="body-font bg-gray-100 text-gray-600">
   <div
-    class="container mx-auto flex flex-col items-center px-5 py-8 sm:flex-row"
+    class="container mx-auto flex flex-col items-center justify-between px-5 py-8 sm:flex-row"
   >
     <a
-      class="title-font flex items-center justify-center font-medium text-gray-900 md:justify-start"
+      class="title-font mb-2 flex items-center justify-center font-medium text-gray-900 md:justify-start"
     >
       <svg
         id="Group_16"
@@ -530,51 +530,84 @@
       </svg>
       <span class="ml-3 text-xl">Female Fight Nutritionist</span>
     </a>
-    <span
-      class="mt-4 inline-flex justify-center sm:ml-auto sm:mt-0 sm:justify-start"
-    >
-      <a
-        href="https://facebook.com/femalefightnutritionist"
-        rel="noopener noreferrer"
-        target="_blank"
-        rel="noopener"
-        class="ml-3 text-gray-500"
+    <div class="py-4">
+      <form
+        hx-trigger="submit"
+        hx-post="/newsletter/"
+        hx-target="#response"
+        hx-swap="outerHTML"
+        class="w-full"
       >
-        <svg
-          fill="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          class="h-5 w-5"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
-          ></path>
-        </svg>
-      </a>
-      <a
-        href="https://instagram.com/femalefightnutritionist"
-        rel="noopener noreferrer"
-        target="_blank"
-        rel="noopener"
-        class="ml-3 text-gray-500"
+        {% csrf_token %}
+        <div class="mb-2 flex">
+          <input
+            class="mr-0 w-full rounded-l border-t border-b border-l border-white bg-white p-1 text-gray-400 focus:bg-white"
+            placeholder="Email Address"
+            type="email"
+            name="email"
+            type="email"
+            required
+          />
+          <button
+            type="submit"
+            value="OK"
+            class="rounded-r border-t border-b border-r border-white bg-gray-500 p-2 px-4 uppercase text-white"
+          >
+            OK
+          </button>
+        </div>
+        <p id="response" class="w-full text-xs">
+          Enter your email to subscribe to our newsletter
+        </p>
+      </form>
+    </div>
+    <div>
+      <span
+        class="mt-4 inline-flex justify-center sm:ml-auto sm:mt-0 sm:justify-start"
       >
-        <svg
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          class="h-5 w-5"
-          viewBox="0 0 24 24"
+        <a
+          href="https://facebook.com/femalefightnutritionist"
+          rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener"
+          class="ml-3 text-gray-500"
         >
-          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-          <path
-            d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"
-          ></path>
-        </svg>
-      </a>
-    </span>
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="https://instagram.com/femalefightnutritionist"
+          rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener"
+          class="ml-3 text-gray-500"
+        >
+          <svg
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+          >
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+            <path
+              d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"
+            ></path>
+          </svg>
+        </a>
+      </span>
+    </div>
   </div>
 </footer>
