@@ -182,6 +182,65 @@ class InitialCheckIn(models.Model):
         auto_now_add=True
     )
     comp_date = models.DateField(verbose_name="Competition Date (YYYY-MM-DD)")
+    medication = models.CharField(
+        verbose_name='Are you currently on any medications? if yes, please give details', max_length=400)
+    contraceptive = models.CharField(
+        verbose_name='Are you currently taking/using a contraceptive? If yes, please state which type', max_length=400)
+    height = models.DecimalField(
+        verbose_name='Height (in cm)', default=0, max_digits=5, decimal_places=2)
+    neck = models.DecimalField(
+        verbose_name='Neck (in cm)', default=0, max_digits=5, decimal_places=2)
+    waist = models.DecimalField(
+        verbose_name='Waist (in cm)', default=0, max_digits=5, decimal_places=2)
+    hip = models.DecimalField(
+        verbose_name='Hip (in cm)', default=0, max_digits=5, decimal_places=2)
+    left_bicep = models.DecimalField(
+        verbose_name='Left bicep (in cm)', default=0, max_digits=5, decimal_places=2)
+    left_quad = models.DecimalField(
+        verbose_name='Left quad (in cm)', default=0, max_digits=5, decimal_places=2)
+    energy = models.CharField(verbose_name='How was your energy this week?',
+                              max_length=400, choices=ENERGY_CHOICES)
+    stress = models.CharField(verbose_name='How were your stress levels this week?',
+                              max_length=400, choices=STRESS_CHOICES)
+    sleep = models.CharField(verbose_name='How was your sleep this week?',
+                             max_length=400, choices=SLEEP_CHOICES)
+    period_date = models.DateField(
+        verbose_name='When is your next period due?', default=timezone.now)
+    digestive_issues = models.CharField(verbose_name='Have you had any digestive issues this week?i.e. gas, bloating, diarrhoea, etc.',
+                                        max_length=400, choices=DIGESTIVE_CHOICES)
+    digestive_describe = models.CharField(
+        verbose_name='Describe your digestive issues  or write "n/a" if you did not have any', max_length=400)
+    bowel_frequency = models.CharField(verbose_name='How frequent were your bowl movements this week?',
+                                       max_length=400, choices=BOWEL_CHOICES)
+    extra = models.CharField(verbose_name='Anything more you would like to briefly comment on or share about yourself?',
+                             max_length=400)
 
     def __str__(self):
         return str(self.order)
+
+
+@receiver(post_save, sender=InitialCheckIn)
+def send_initial_checkin_email(sender, instance, created, **kwargs):
+    subject = f'New Initial Check-In Form submitted on {instance.checkin_time} by {instance.order.user}.'
+    message = f'New Initial Check-In Form submitted on {instance.checkin_time} by {instance.order.user}. Details:\n\n'
+    message += f'Order: {instance.order}\n\n'
+    message += f'Medication: {instance.medication}\n\n'
+    message += f'Contraceptive: {instance.contraceptive}\n\n'
+    message += f'Goal Weight: {instance.goal_weight}\n\n'
+    message += f'Current Weight: {instance.starting_weight}\n\n'
+    message += f'Height: {instance.height}\n\n'
+    message += f'Neck: {instance.neck}\n\n'
+    message += f'Waist: {instance.waist}\n\n'
+    message += f'Hip: {instance.hip}\n\n'
+    message += f'Left Bicep: {instance.left_bicep}\n\n'
+    message += f'Left Quad: {instance.left_quad}\n\n'
+    message += f'Energy: {instance.energy}\n\n'
+    message += f'Stress: {instance.stress}\n\n'
+    message += f'Sleep: {instance.sleep}\n\n'
+    message += f'Period Date: {instance.period_date}\n\n'
+    message += f'Digestive Issues: {instance.digestive_issues}\n\n'
+    message += f'Digestive Describe: {instance.digestive_describe}\n\n'
+    message += f'Bowel Frequency: {instance.bowel_frequency}\n\n'
+    # Replace with desired recipient email address
+    recipient_list = [settings.DEFAULT_FROM_EMAIL]
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
