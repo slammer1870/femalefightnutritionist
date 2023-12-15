@@ -116,9 +116,9 @@ def contact(request):
                     response = sg.send(message)
                     messages.success(
                         request, "Thank you for your message, we will respond shortly")
-                    return redirect('index_page')
+                    return redirect('index')
                 except Exception as e:
                     messages.error(request, "Oops something went wrong")
-                    return redirect('index_page')
+                    return redirect('index')
             messages.error(request, "Oops something went wrong")
-            return redirect('index_page')
+            return redirect('index')
