@@ -1,17 +1,20 @@
 import hashlib
 import json
+import urllib
 
 import mailchimp_marketing as MailchimpMarketing
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views import View, generic
 from mailchimp_marketing.api_client import ApiClientError
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail, SendAt
 
 from blog.models import Post
 
-from .forms import LeadForm
+from .forms import ContactForm, LeadForm
 
 
 class IndexPageView(generic.FormView):
@@ -22,6 +25,7 @@ class IndexPageView(generic.FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['blog_posts'] = Post.objects.all()[:3]
+        context['contact_form'] = ContactForm
 
         return context
 
@@ -73,3 +77,48 @@ class NewsletterView(View):
                                                      "tags": [{"name": "newsletter", "status": "active"}]})
                 return HttpResponse('<p class="text-xs w-max">You are already subscribed!</p>')
             return HttpResponse('<p class="text-xs w-max">Something went wrong.</p>')
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+
+        # Check form post data is valid
+        if form.is_valid():
+
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req = urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
+
+            if result['success']:
+
+                # SendGrid configuration
+                message = Mail(
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to_emails=settings.DEFAULT_FROM_EMAIL,
+                    subject='New form submission from {}'.format(
+                        form.cleaned_data.get('name')),
+                    plain_text_content=form.cleaned_data.get('message'))
+                message.reply_to = form.cleaned_data.get(
+                    'email'), form.cleaned_data.get('name')
+                try:
+                    # Initialises Sendgrid Client
+                    sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+                    response = sg.send(message)
+                    messages.success(
+                        request, "Thank you for your message, we will respond shortly")
+                    return redirect('index_page')
+                except Exception as e:
+                    messages.error(request, "Oops something went wrong")
+                    return redirect('index_page')
+            messages.error(request, "Oops something went wrong")
+            return redirect('index_page')
