@@ -9,8 +9,10 @@ from .models import Post
 class BlogListView(ListView):
     template_name = "blog/blog_list.html"
     model = Post
+    queryset = Post.objects.filter(published=True)
 
 
 class BlogDetailView(DetailView):
     template_name = "blog/blog_detail.html"
     model = Post
+    queryset = Post.objects.filter(published=True)
