@@ -15,6 +15,103 @@
   <body>
     <!--Messages are included here-->
     {% include 'partials/_messages.html' %} {% include "navbar.html" %} {% block content %} {% endblock content %}
+    <div
+      id="cookieConsentBanner"
+      class="fixed bottom-0 z-50 w-full bg-gray-100 hidden"
+    >
+      <div
+        class="overflow-none mx-auto flex max-w-screen-md items-center justify-around p-4"
+      >
+        <p>This website uses cookies to ensure you get the best experience.</p>
+        <div class="flex flex-col justify-end md:flex-row">
+          <button
+            id="acceptCookies"
+            class="mb-1 ml-4 w-28 bg-green-400 px-4 py-2 font-medium text-white md:mb-0"
+          >
+            Accept</button
+          ><button
+            id="rejectCookies"
+            class="ml-4 w-28 bg-gray-400 px-4 py-2 font-medium text-white"
+          >
+            Decline
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+          var date = new Date();
+          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      }
+
+      function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == " ") c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) == 0)
+            return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+
+      document.getElementById("acceptCookies").onclick = function () {
+        setCookie("cookieConsent", "true", 7);
+        document.getElementById("cookieConsentBanner").style.display = "none";
+        loadFacebookPixel();
+      };
+
+      document.getElementById("rejectCookies").onclick = function () {
+        document.getElementById("cookieConsentBanner").style.display = "none";
+      };
+
+      function loadFacebookPixel() {
+        if (getCookie("cookieConsent")) {
+          !(function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+              n.callMethod
+                ? n.callMethod.apply(n, arguments)
+                : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = "2.0";
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+          })(
+            window,
+            document,
+            "script",
+            "https://connect.facebook.net/en_US/fbevents.js"
+          );
+          fbq("init", "1358637678200673");
+          fbq("track", "PageView");
+        }
+      }
+
+      window.onload = function () {
+        if (!getCookie("cookieConsent")) {
+          document.getElementById("cookieConsentBanner").style.display =
+            "block";
+        }
+        if (getCookie("cookieConsent")) {
+          loadFacebookPixel();
+        }
+      };
+    </script>
   </body>
   <!--Tailwin build colours-->
   <span class="bg-purple-400"></span>
