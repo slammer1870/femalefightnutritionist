@@ -18,7 +18,7 @@
     <div
       id="cookieConsentBanner"
       style="
-        display: none;
+        display: block;
         position: fixed;
         bottom: 0;
         width: 100%;
@@ -111,9 +111,9 @@
       }
 
       window.onload = function () {
-        if (!getCookie("cookieConsent")) {
+        if (getCookie("cookieConsent")) {
           document.getElementById("cookieConsentBanner").style.display =
-            "block";
+            "none";
         }
         if (getCookie("cookieConsent")) {
           loadFacebookPixel();
