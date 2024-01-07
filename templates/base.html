@@ -11,21 +11,13 @@
     <title>Female Fight Nutritionist</title>
     <meta name="description" content="Female Fight Nutritionist" />
     <link rel="icon" href="{% static 'favicon.ico' %}" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
   </head>
   <body>
     <!--Messages are included here-->
     {% include 'partials/_messages.html' %} {% include "navbar.html" %} {% block content %} {% endblock content %}
     <div
       id="cookieConsentBanner"
-      style="
-        display: none;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background: lightgray;
-        padding: 10px;
-        z-index: 100;
-      "
     >
       <div
         class="overflow-none mx-auto flex max-w-screen-md items-center justify-around p-4"
@@ -34,12 +26,12 @@
         <div class="flex flex-col justify-end md:flex-row">
           <button
             id="acceptCookies"
-            class="mb-2 ml-4 w-28 bg-green-400 px-4 py-2 font-medium text-white md:mb-0 rounded-md"
+            class="mb-2 ml-4 w-28 rounded-md bg-green-400 px-4 py-2 font-medium text-white md:mb-0"
           >
             Accept</button
           ><button
             id="rejectCookies"
-            class="ml-4 w-28 bg-gray-400 px-4 py-2 font-medium text-white rounded-md"
+            class="ml-4 w-28 rounded-md bg-gray-400 px-4 py-2 font-medium text-white"
           >
             Decline
           </button>
@@ -72,12 +64,14 @@
 
       document.getElementById("acceptCookies").onclick = function () {
         setCookie("cookieConsent", "true", 7);
-        document.getElementById("cookieConsentBanner").style.display = "none";
+        document.getElementById("cookieConsentBanner").style.display =
+          "none";
         loadFacebookPixel();
       };
 
       document.getElementById("rejectCookies").onclick = function () {
-        document.getElementById("cookieConsentBanner").style.display = "none";
+        document.getElementById("cookieConsentBanner").style.display =
+          "none";
       };
 
       function loadFacebookPixel() {

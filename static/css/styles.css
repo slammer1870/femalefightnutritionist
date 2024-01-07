@@ -1,0 +1,15 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Your custom styles here */
+#cookieConsentBanner {
+  /* your styles */
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: lightgray;
+  padding: 10px;
+  z-index: 100;
+}
